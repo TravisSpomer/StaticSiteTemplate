@@ -116,7 +116,7 @@ Open [`staticsite.json`](staticsite.json) to configure options for the site.
 
 The template includes a few files that aren't necessary that you can feel free to delete.
 
-*	`*.md` are just documentation.
+*	`page2.md` is just an example of how to write a page in Markdown and you should delete it.
 *	`site.ts` is the TypeScript source for the site. There's nothing in it, so it'll generate an empty JavaScript file. You don't need this if you aren't writing any site-wide client script.
 *	`humans.txt` is just for your benefit and is not necessary in any way.
 *	The `plain.hbs` layout isn't used by anything, and you may not need it.
