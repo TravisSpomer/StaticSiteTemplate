@@ -83,7 +83,7 @@ At minimum, do this to customize the site for your purposes:
 
 1.	Set your site's deployed/canonical URL in [`staticsite.json`](staticsite.json)
 2.	Find and replace `StaticSiteTemplate` with the name of your site
-3.	Update the copyright information in `src/layouts/*.hbs`](src/layouts/*.hbs)
+3.	Update the copyright information in [`src/layouts/*.hbs`](src/layouts/*.hbs)
 4.	Replace image assets in `src/images/app` with appropriate logos for your site
 5.	Add appropriate information to the [app manifest](src/app.webmanifest)
 6.	Give yourself credit in [`humans.txt`](src/humans.txt)
