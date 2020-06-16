@@ -1,3 +1,5 @@
+*Viewing this on GitHub? Just click the **Use this template** button above.*
+
 # Travis's static site template
 
 This project contains the basic site template that I use. I've set it up for rapid development and to produce simple, very-high-performance static websites the way that Grandma used to, but with a few extra modern necessities like TypeScript and CSS preprocessing. It has no particular runtime dependencies.
@@ -100,7 +102,7 @@ you could adapt the template to handle more than one base layout: see the call t
 
 ### Compatibility
 
-Compatibility with Internet Explorer, "Spartan" (pre-Chromium) Edge, and other non-modern browsers is not a goal.
+Compatibility with Internet Explorer, "Spartan" (pre-Chromium) Edge, and other non-modern browsers is not a goal. That just applies to the included CSS, though—if you replace my default CSS with something simpler, it would work just fine.
 
 ### Site options
 
@@ -159,5 +161,7 @@ When the option is set to false (or omitted), the pipeline will use its contents
 *	[Browsersync](https://www.browsersync.io/) for the development server.
 
 For more information, including licenses for these packages, check the `node_modules` subfolders.
+
+---
 
 This template is © 2020 Travis Spomer but released to the public domain under the [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0) license. This license does not apply to sites built with this template, nor to external libraries referenced by this template; only the template itself.
