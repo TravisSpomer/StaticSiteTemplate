@@ -204,6 +204,7 @@ const markdown = (callback) =>
 		.pipe(FrontMatter())
 		.pipe(Marked())
 		.pipe(wrapInTemplate())
+		.pipe(GulpRename(renameWithoutExtension))
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
 
 	callback()
@@ -220,6 +221,7 @@ const markdownMin = (callback) =>
 		.pipe(Marked())
 		.pipe(wrapInTemplate())
 		.pipe(GulpHtmlMin(GulpHtmlMinOptions))
+		.pipe(GulpRename(renameWithoutExtension))
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
 
 	callback()
