@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "lit-element": "https://cdn.pika.dev/pin/lit-element@v2.3.1-c9v17B91nfmKK34WUbh0/lit-element.js"
+  }
+}

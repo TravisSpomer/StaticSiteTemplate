@@ -1,0 +1,7 @@
+{
+	"azureStaticWebApps": false,
+	"canonicalUrl": "https://www.example.com",
+	"defaultLayout": "default",
+	"devServerPort": 80,
+	"outputFolder": "build"
+}

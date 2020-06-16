@@ -1,0 +1,7 @@
+{
+	"server": "build",
+	"files": [
+		"build/**"
+	],
+	"notify": false
+}

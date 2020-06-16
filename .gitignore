@@ -1,0 +1,20 @@
+# Build output
+build/
+
+# Yarn cache
+.yarn/
+.pnp.js
+
+# Node.js modules (and their Snowpack versions)
+node_modules/
+web_modules/
+
+# Visual Studio cache, options, and user-specific files
+.vs/
+*.[Cc]ache
+!?*.[Cc]ache/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates

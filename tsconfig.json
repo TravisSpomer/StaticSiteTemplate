@@ -1,0 +1,32 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"allowJs": true,
+		"alwaysStrict": true,
+		"baseUrl": "./web_modules",
+		"experimentalDecorators": true,
+		"lib": [ "ES2017", "dom" ],
+		"module": "ES6",
+		"noEmit": false,
+		"noEmitOnError": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"outDir": "build/",
+		"paths": { "*": ["web_modules/.types/*"] },
+		"removeComments": true,
+		"rootDir": ".",
+		"skipLibCheck": true,
+		"strictNullChecks": true,
+		"target": "ESNext"
+	},
+	"include": [
+		"src/**/*.js",
+		"src/**/*.ts"
+	],
+	"exclude": [
+		"node_modules/**",
+		"web_modules/**"
+	]
+}

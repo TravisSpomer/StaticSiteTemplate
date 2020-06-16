@@ -1,0 +1,46 @@
+{
+	"license": "UNLICENSED",
+	"private": true,
+	"devDependencies": {
+		"@babel/cli": "^7.10.1",
+		"@babel/core": "^7.10.2",
+		"@babel/plugin-proposal-class-properties": "^7.10.1",
+		"@babel/plugin-proposal-decorators": "^7.10.1",
+		"@babel/preset-env": "^7.10.2",
+		"@babel/preset-typescript": "^7.10.1",
+		"@typescript-eslint/parser": "^3.0.2",
+		"babel-eslint": "^10.1.0",
+		"babel-plugin-unpkg": "^1.0.0",
+		"browser-sync": "^2.26.7",
+		"del": "^5.1.0",
+		"eslint": "7.2.0",
+		"gulp": "^4.0.2",
+		"gulp-debug": "^4.0.0",
+		"gulp-front-matter": "^1.3.0",
+		"gulp-htmlmin": "^5.0.1",
+		"gulp-marked": "^1.0.0",
+		"gulp-rename": "^2.0.0",
+		"gulp-sass": "^4.1.0",
+		"gulp-terser": "^1.2.0",
+		"gulp-typescript": "^6.0.0-alpha.1",
+		"gulp-wrap": "^0.15.0",
+		"handlebars": "^4.7.6",
+		"node-sass": "^4.14.0",
+		"snowpack": "^2.1.0",
+		"typescript": "^3.9.4"
+	},
+	"webDependencies": {
+		"lit-element": "^2.3.1"
+	},
+	"scripts": {
+		"clean": "gulp clean",
+		"build": "gulp build",
+		"install": "snowpack install",
+		"prod": "gulp prod",
+		"serve": "gulp serve",
+		"start": "gulp start",
+		"watch": "gulp watch",
+		"build:Azure": "gulp prod"
+	},
+	"version": "0.0.0"
+}

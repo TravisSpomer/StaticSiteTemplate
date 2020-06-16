@@ -1,0 +1,36 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Install dependencies",
+			"command": "yarn install",
+			"type": "shell",
+			"problemMatcher": []
+		},
+		{
+			"label": "Build",
+			"type": "gulp",
+			"task": "build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Production build",
+			"type": "gulp",
+			"task": "prod"
+		},
+		{
+			"label": "Start",
+			"isBackground": true,
+			"type": "gulp",
+			"task": "start",
+			"presentation": {
+				"reveal": "silent",
+				"group": "Web server"
+			}
+		}
+	]
+}
