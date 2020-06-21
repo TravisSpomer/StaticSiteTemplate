@@ -147,6 +147,23 @@ When the option is set to false (or omitted), the pipeline will use its contents
 }
 ```
 
+## Deploying to the web
+
+You have two options:
+
+### Deploying to Azure Static Web Apps
+
+You can deploy to Azure Static Web Apps with very minimal configuration:
+
+*	Set `azureStaticWebApps` to `true` in [`staticsite.json`](staticsite.json).
+*	When creating the app, set the build artifacts folder to `build` (it's empty by default).
+
+**NOTE:** At the time of writing, the deployed site will be the unoptimized `yarn build` version, not the production `yarn prod` version.
+
+### Deploying to any static file host
+
+You can also deploy the site to any static file host. Just run a production build (`yarn prod`; see above) and upload the contents of the `build` folder to a host of your choice.
+
 ## Technologies used
 
 *	[Handlebars](https://www.handlebarsjs.com/) for page templating.
