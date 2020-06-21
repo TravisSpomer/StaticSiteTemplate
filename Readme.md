@@ -58,7 +58,7 @@ But, the most useful option will be the **Start** task, which will perform a ful
 
 To see the status of the server or build task, click the tools icon in the status bar, or Terminal > Show Running Tasks.
 
-When you're ready to produce a minified production build of the site, run the `prod` build command:
+When you're ready to produce a minified production build of the site, run the `build` build command:
 
 1.	Terminal > Run Task
 2.	Tasks: Run Task
@@ -68,10 +68,10 @@ When you're ready to produce a minified production build of the site, run the `p
 
 If you want to use the project without Visual Studio Code, use the following scripts instead of the above:
 
-*	`yarn install`
-*	`yarn build`
-*	`yarn start`
-*	`yarn prod`
+*	`yarn install`: Install dependencies
+*	`yarn start`: Start live server
+*	`yarn dev`: Development build
+*	`yarn prod`: Production build
 
 ## Using the template
 
@@ -158,11 +158,11 @@ You can deploy to Azure Static Web Apps with very minimal configuration:
 *	Set `azureStaticWebApps` to `true` in [`staticsite.json`](staticsite.json).
 *	When creating the app, set the build artifacts folder to `build` (it's empty by default).
 
-**NOTE:** At the time of writing, the deployed site will be the unoptimized `yarn build` version, not the production `yarn prod` version.
+Once your repo and Azure are set up in this way, whenever your main branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
 
 ### Deploying to any static file host
 
-You can also deploy the site to any static file host. Just run a production build (`yarn prod`; see above) and upload the contents of the `build` folder to a host of your choice.
+You can also deploy the site to any static file host. Just run a production build (`yarn build`; see above) and upload the contents of the `build` folder to a host of your choice.
 
 ## Technologies used
 

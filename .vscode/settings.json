@@ -4,6 +4,7 @@
 	},
 	"editor.insertSpaces": false,
 	"files.exclude": {
+		".github": true,
 		".vs": true,
 		".vscode": true,
 		".yarn": true,

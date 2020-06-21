@@ -10,7 +10,7 @@
 		{
 			"label": "Build",
 			"type": "gulp",
-			"task": "build",
+			"task": "dev",
 			"group": {
 				"kind": "build",
 				"isDefault": true
@@ -20,7 +20,7 @@
 		{
 			"label": "Production build",
 			"type": "gulp",
-			"task": "prod"
+			"task": "build"
 		},
 		{
 			"label": "Start",

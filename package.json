@@ -33,14 +33,13 @@
 		"lit-element": "^2.3.1"
 	},
 	"scripts": {
+		"install": "snowpack install",
 		"clean": "gulp clean",
 		"build": "gulp build",
-		"install": "snowpack install",
-		"prod": "gulp prod",
+		"dev": "gulp dev",
 		"serve": "gulp serve",
-		"start": "gulp start",
 		"watch": "gulp watch",
-		"build:Azure": "gulp prod"
+		"start": "gulp start"
 	},
 	"version": "0.0.0"
 }
