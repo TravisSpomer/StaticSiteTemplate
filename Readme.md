@@ -73,7 +73,7 @@ If you want to use the project without Visual Studio Code, use the following scr
 *	`yarn install`: Install dependencies
 *	`yarn start`: Start live server
 *	`yarn dev`: Development build
-*	`yarn prod`: Production build
+*	`yarn build`: Production build
 
 ## Using the template
 
