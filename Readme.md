@@ -92,10 +92,11 @@ At minimum, do this to customize the site for your purposes:
 
 #### Editing the page layout (template)
 
-This site template comes with two page layouts:
+This site template comes with three page layouts:
 
 *	[`default.hbs`](src/layouts/default.hbs), which is suitable for most pages and is used whenever a layout is not explicitly chosen by a page.
-*	[`plain.hbs`](src/layouts/plain.hbs), which is useful for popup windows and very custom pages that don't want the standard page contents.
+*	[`plain.hbs`](src/layouts/plain.hbs), which is useful for popup windows and very custom pages that don't want the standard page chrome, but still want the site's CSS.
+*	[`none.hbs`](src/layouts/none.hbs), for situations where you want the page contents to be written as-is with no template or shared styles.
 
 You can add any number of additional page layouts just by adding more files to that folder. Use `file.frontMatter` in your layout to access the page's FrontMatter data.
 
@@ -123,7 +124,7 @@ The template includes a few files that aren't necessary that you can feel free t
 *	`page2.md` is just an example of how to write a page in Markdown and you should delete it.
 *	`site.ts` is the TypeScript source for the site. There's nothing in it, so it'll generate an empty JavaScript file. You don't need this if you aren't writing any client script.
 *	`humans.txt` is just for your benefit and is not necessary in any way.
-*	The `plain.hbs` layout isn't used by anything in the teample, and you may not need it.
+*	The `plain.hbs` and `none.hbs` layouts aren't used by anything in the template, and you may not need them.
 *	`lit-element` in `webDependencies` is only used as an example of how to include lightweight NPM packages for use in client-side script. You can remove it from `webDependencies`.
 
 ### Creating routes and redirects
