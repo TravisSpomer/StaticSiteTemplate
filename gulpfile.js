@@ -144,13 +144,15 @@ const GulpHtmlMinOptions =
 	sortAttributes: true,
 }
 
-const pathsToNotRename = new Set(["./index.html"])
+const pathsToNotRename = new Set()
 for (const errorPage of routesJson.platformErrorOverrides)
 	pathsToNotRename.add(`.${errorPage.serve}`)
 
 const renameWithoutExtension = (path) =>
 {
 	if (pathsToNotRename.has(`${path.dirname}/${path.basename}${path.extname}`)) return path
+	if (path.basename === "index") return path
+
 	return ({
 		...path,
 		dirname: `${path.dirname}/${path.basename}`,
@@ -355,9 +357,9 @@ setupOutput.displayName = "Set up output folder"
 // Exports
 // ------------------------------------------------------------
 
-const dev = Gulp.parallel(typescript, html, markdown, css, webModules, redirects, symlink)
+const build = Gulp.parallel(typescript, html, markdown, css, webModules, redirects, symlink)
 
-const build = Gulp.parallel(typescriptMin, htmlMin, markdownMin, cssMin, webModulesMin, redirects, symlink)
+const prod = Gulp.parallel(typescriptMin, htmlMin, markdownMin, cssMin, webModulesMin, redirects, symlink)
 
 const watch = (callback) =>
 {
@@ -373,10 +375,10 @@ const watch = (callback) =>
 watch.displayName = "Watch for changes"
 
 exports.clean = Gulp.series(setupOutput, clean)
-exports.dev = Gulp.series(setupOutput, clean, dev)
 exports.build = Gulp.series(setupOutput, clean, build)
-exports.watch = Gulp.series(setupOutput, clean, dev, watch)
+exports.prod = Gulp.series(setupOutput, clean, prod)
+exports.watch = Gulp.series(setupOutput, clean, build, watch)
 exports.serve = Gulp.series(setupOutput, serve)
-exports.start = Gulp.series(setupOutput, clean, dev, Gulp.parallel(watch, serve))
+exports.start = Gulp.series(setupOutput, clean, build, Gulp.parallel(watch, serve))
 
 exports.default = exports.build
