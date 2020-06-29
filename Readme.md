@@ -45,25 +45,22 @@ In addition, in Windows, you must enable Developer Mode so that the site templat
 Whenever picking up a new version of the template, you need to make sure your dependencies are installed.  In Visual Studio Code:
 
 1.	Terminal > Run Task
-2.	Tasks: Run Task
-3.	Install dependencies
+2.	Install dependencies
 
 Then, you can do a full dev build of the project with:
 
-1.	Ctrl+Shift+B (or Terminal > Run Build Task)
+1.	Terminal > Run Build Task (Ctrl+Shift+B)
 
 But, the most useful option will be the **Start** task, which will perform a full dev build of the project, and then start a web server, open a tab in your browser, and automatically reload the site whenever you change anything while the server is running. The task uses [Browsersync](https://browsersync.io/), so you can open multiple browsers to the same site and they'll stay in sync.
 
 1.	Terminal > Run Task
-2.	Tasks: Run Task
-3.	Start
+2.	Start
 
 To see the status of the server or build task, click the tools icon in the status bar, or Terminal > Show Running Tasks.
 
 When you're ready to produce a minified production build of the site, run the `build` build command:
 
 1.	Terminal > Run Task
-2.	Tasks: Run Task
 3.	Production build
 
 #### Without Visual Studio Code
