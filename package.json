@@ -27,7 +27,7 @@
 		"handlebars": "^4.7.6",
 		"node-sass": "^4.14.0",
 		"snowpack": "^2.1.0",
-		"typescript": "^3.9.4"
+		"typescript": "^3.9.5"
 	},
 	"webDependencies": {
 		"lit-element": "^2.3.1"

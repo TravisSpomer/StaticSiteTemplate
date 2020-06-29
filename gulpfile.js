@@ -135,7 +135,6 @@ const GulpHtmlMinOptions =
 	collapseBooleanAttributes: true,
 	collapseWhitespace: true,
 	conservativeCollapse: true,
-	maxLineLength: 400,
 	minifyCSS: true,
 	minifyJS: true,
 	quoteCharacter: '"',
