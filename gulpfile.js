@@ -356,9 +356,9 @@ setupOutput.displayName = "Set up output folder"
 // Exports
 // ------------------------------------------------------------
 
-const build = Gulp.parallel(typescript, html, markdown, css, webModules, redirects, symlink)
+const dev = Gulp.parallel(typescript, html, markdown, css, webModules, redirects, symlink)
 
-const prod = Gulp.parallel(typescriptMin, htmlMin, markdownMin, cssMin, webModulesMin, redirects, symlink)
+const build = Gulp.parallel(typescriptMin, htmlMin, markdownMin, cssMin, webModulesMin, redirects, symlink)
 
 const watch = (callback) =>
 {
@@ -374,8 +374,8 @@ const watch = (callback) =>
 watch.displayName = "Watch for changes"
 
 exports.clean = Gulp.series(setupOutput, clean)
+exports.dev = Gulp.series(setupOutput, clean, dev)
 exports.build = Gulp.series(setupOutput, clean, build)
-exports.prod = Gulp.series(setupOutput, clean, prod)
 exports.watch = Gulp.series(setupOutput, clean, build, watch)
 exports.serve = Gulp.series(setupOutput, serve)
 exports.start = Gulp.series(setupOutput, clean, build, Gulp.parallel(watch, serve))
