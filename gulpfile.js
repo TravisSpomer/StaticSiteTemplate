@@ -11,7 +11,7 @@ const Sass = require("gulp-sass")
 const Wrap = require("gulp-wrap")
 const Terser = require("gulp-terser")
 const TypeScript = require("gulp-typescript")
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars-experimental
 const GulpDebug = require("gulp-debug")
 
 // ------------------------------------------------------------
@@ -378,6 +378,6 @@ exports.dev = Gulp.series(setupOutput, clean, dev)
 exports.build = Gulp.series(setupOutput, clean, build)
 exports.watch = Gulp.series(setupOutput, clean, build, watch)
 exports.serve = Gulp.series(setupOutput, serve)
-exports.start = Gulp.series(setupOutput, clean, build, Gulp.parallel(watch, serve))
+exports.start = Gulp.series(setupOutput, clean, dev, Gulp.parallel(watch, serve))
 
 exports.default = exports.build
