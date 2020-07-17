@@ -376,7 +376,7 @@ watch.displayName = "Watch for changes"
 exports.clean = Gulp.series(setupOutput, clean)
 exports.dev = Gulp.series(setupOutput, clean, dev)
 exports.build = Gulp.series(setupOutput, clean, build)
-exports.watch = Gulp.series(setupOutput, clean, build, watch)
+exports.watch = Gulp.series(setupOutput, clean, dev, watch)
 exports.serve = Gulp.series(setupOutput, serve)
 exports.start = Gulp.series(setupOutput, clean, dev, Gulp.parallel(watch, serve))
 
