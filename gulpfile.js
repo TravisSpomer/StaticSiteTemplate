@@ -7,6 +7,7 @@ const GulpHtmlMin = require("gulp-htmlmin")
 const GulpRename = require("gulp-rename")
 const Handlebars = require("handlebars")
 const Marked = require("gulp-marked")
+const Path = require("path")
 const Sass = require("gulp-sass")
 const Wrap = require("gulp-wrap")
 const Terser = require("gulp-terser")
@@ -275,7 +276,17 @@ const redirects = (callback) =>
 	{
 		const contents = `<meta http-equiv=refresh content="0;url=${routeData.serve}"><link rel=canonical href="${staticSiteJson.canonicalUrl}${routeData.serve}">`
 
-		FS.writeFileSync(staticSiteJson.outputFolder + routeData.route, contents)
+		// If the route doesn't have an extension, treat it as a folder containing index.html.
+		let filename = Path.join(staticSiteJson.outputFolder, routeData.route)
+		if (Path.extname(filename).length === 0)
+			filename = Path.join(filename, "index.html")
+
+		// Before saving the file, create its folder if necessary.
+		const dir = Path.dirname(filename)
+		if (!FS.existsSync(dir))
+			FS.mkdirSync(dir, { recursive: true })
+
+		FS.writeFileSync(filename, contents)
 	}
 
 	callback()
