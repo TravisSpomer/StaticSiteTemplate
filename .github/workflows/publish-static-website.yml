@@ -10,6 +10,8 @@
 # 2. If you want to enable automatic deployments, uncomment the "push" and "branches" lines below.
 # 3. If necessary, configure the PUBLISH_OUTPUT_PATH variable in the "env" section below.
 
+name: Publish static website
+
 on:
   workflow_dispatch:
 #  push:
