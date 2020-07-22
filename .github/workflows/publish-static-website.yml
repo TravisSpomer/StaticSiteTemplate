@@ -1,9 +1,9 @@
 # Requires:
-# 1. A repo that contains .github/scripts/publish-static-website.ps1 and generates
+# 1. A repo like this one that contains .github/scripts/publish-static-website.ps1 and generates
 #    some static website files into a folder including an index.html
 # 2. An Azure Blob Storage account with the "Static website" feature enabled
 # 3. A Blob service SAS URL generated from the Portal
-#      (with at least read/write access to blobs, and a validity period long enough to copy files)
+#      (with at least read/write access to blobs, and a very long validity period, such as 10 years)
 #
 # Setup:
 # 1. In Settings > Secrets, add a new secret called PUBLISH_SAS_URL with your SAS URL.
