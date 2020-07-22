@@ -19,8 +19,8 @@ Back in the olden days, a website that didn't need server-side processing was ju
 *	You can write CSS using the more modern SCSS (Sass) syntax, and it'll be automatically converted.
 *	The site template and styles include a few opinionated defaults for making beautiful text.
 *	A fast development server is included so you can preview your site instantly, and for production builds, the output is minified for maximum performance.
-*	When paired with the [Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/) service, you automatically get continuous production deployments based on your main Git branch, without ever manually uploading any files.
-	*	But you can use it with any other static site host too by running a single command and then uploading the contents of the site via FTP.
+*	When paired with the [Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/) service or an Azure Blob Storage static website, you automatically get continuous production deployments based on your main Git branch, without ever manually uploading any files.
+	*	But you can use it with any other static site host too by running a single build command and then uploading the contents of the site via FTP.
 
 For more details, see "Using the template" below.
 
