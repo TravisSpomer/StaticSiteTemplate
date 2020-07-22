@@ -156,13 +156,13 @@ You have a few options:
 You can deploy to Azure Static Web Apps with very minimal configuration:
 
 *	Set `azureStaticWebApps` to `true` in [`staticsite.json`](staticsite.json).
-*	When creating the app, set the build artifacts folder to `build` (it's empty by default).
+*	When creating the app in Azure Portal, set the build artifacts folder to `build` (it's empty by default).
 
 Once your repo and Azure are set up in this way, whenever your master branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
 
-### Deploying to Azure Blob Storage using GitHub
+### Deploying to Azure Blob Storage
 
-You can easily deploy to an Azure Blob Storage static website your project is on GitHub:
+You can easily deploy to an Azure Blob Storage static website using GitHub Actions (if your project is on GitHub):
 
 *	In Azure Portal, generate an SAS token for your site's blob storage account. Give it a very long expiration (10 years, for example).
 *	Copy the SAS URL given to you when generating the token.
@@ -175,6 +175,8 @@ Once your repo is set up this way, whenever your master branch is changed, GitHu
 ### Deploying to any static file host
 
 You can also deploy the site to any static file host. Just run a production build (`yarn build`; see above) and upload the contents of the `build` folder to a host of your choice.
+
+Tip: The [`.github/scripts/publish-static-website.ps1`](.github/scripts/publish-static-website.ps1) script in this repo isn't actually GitHub-specific, and can be used in an Azure DevOps Pipelines deployment. See the script for instructions.
 
 ## Technologies used
 
