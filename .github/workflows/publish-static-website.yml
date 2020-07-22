@@ -1,0 +1,42 @@
+# Requires:
+# 1. A repo that contains .github/scripts/publish-static-website.ps1 and generates
+#    some static website files into a folder including an index.html
+# 2. An Azure Blob Storage account with the "Static website" feature enabled
+# 3. A Blob service SAS URL generated from the Portal
+#      (with at least read/write access to blobs, and a validity period long enough to copy files)
+#
+# Setup:
+# 1. In Settings > Secrets, add a new secret called PUBLISH_SAS_URL with your SAS URL.
+# 2. If you want to enable automatic deployments, uncomment the "push" and "branches" lines below.
+# 3. If necessary, configure the PUBLISH_OUTPUT_PATH variable in the "env" section below.
+
+on:
+  workflow_dispatch:
+#  push:
+#    branches: [ master ]
+
+env:
+  NODE_VERSION: '12.x' # the Node.js version to use
+  PUBLISH_OUTPUT_PATH: build # where your static site files are 
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy static website
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Install Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        
+    - name: npm install, build, and test
+      run: |
+        npm install
+        npm run build
+        npm run test --if-present
+        
+    - name: 'Deploy to Azure Blob Storage'
+      run: pwsh ./.github/scripts/publish-static-website.ps1 "${{ env.PUBLISH_OUTPUT_PATH }}" "${{ secrets.PUBLISH_SAS_URL }}"
