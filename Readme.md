@@ -1,10 +1,10 @@
-*Viewing this on GitHub? Just click the **Use this template** button above.*
-
 # Travis's static site template
 
 This project contains the basic site template that I use. I've set it up for rapid development and to produce simple, very-high-performance static websites the way that Grandma used to, but with a few extra modern necessities like TypeScript and CSS preprocessing. It has no particular runtime dependencies.
 
 This is a project for my own use and I don't have any plans to elevate it beyond that but you're welcome to take it and build on it from there. (Unless you prefer indenting with spaces, in which case GTFO.)
+
+### **[🆕 Create a website with this template now](https://github.com/TravisSpomer/StaticSiteTemplate/generate)**
 
 ## What you can do with it
 
