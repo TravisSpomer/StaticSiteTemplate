@@ -167,7 +167,7 @@ You can easily deploy to an Azure Blob Storage static website your project is on
 *	In Azure Portal, generate an SAS token for your site's blob storage account. Give it a very long expiration (10 years, for example).
 *	Copy the SAS URL given to you when generating the token.
 *	In GitHub, go to Settings, then Secrets, and then add a secret called `PUBLISH_SAS_URL` and paste your SAS token.
-*	In GitHub, open this repo's `.github/scripts/publish-static-website.yml`, edit it, and uncomment the two `push:` and `branches: [ master ]` lines to enable automatic deployments.
+*	In GitHub, open this repo's [`.github/workflows/publish-static-website.yml`](.github/workflows/publish-static-website.yml), edit it, and uncomment the two `push:` and `branches: [ master ]` lines to enable automatic deployments.
 	*	If you prefer, you can manually trigger a deployment from the Actions tab.
 
 Once your repo is set up this way, whenever your master branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
