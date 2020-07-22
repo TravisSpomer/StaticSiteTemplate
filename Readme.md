@@ -149,7 +149,7 @@ When the option is set to false (or omitted), the pipeline will use its contents
 
 ## Deploying to the web
 
-You have two options:
+You have a few options:
 
 ### Deploying to Azure Static Web Apps
 
@@ -158,7 +158,19 @@ You can deploy to Azure Static Web Apps with very minimal configuration:
 *	Set `azureStaticWebApps` to `true` in [`staticsite.json`](staticsite.json).
 *	When creating the app, set the build artifacts folder to `build` (it's empty by default).
 
-Once your repo and Azure are set up in this way, whenever your main branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
+Once your repo and Azure are set up in this way, whenever your master branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
+
+### Deploying to Azure Blob Storage using GitHub
+
+You can easily deploy to an Azure Blob Storage static website your project is on GitHub:
+
+*	In Azure Portal, generate an SAS token for your site's blob storage account. Give it a very long expiration (10 years, for example).
+*	Copy the SAS URL given to you when generating the token.
+*	In GitHub, go to Settings, then Secrets, and then add a secret called `PUBLISH_SAS_URL` and paste your SAS token.
+*	In GitHub, open this repo's `.github/scripts/publish-static-website.yml`, edit it, and uncomment the two `push:` and `branches: [ master ]` lines to enable automatic deployments.
+	*	If you prefer, you can manually trigger a deployment from the Actions tab.
+
+Once your repo is set up this way, whenever your master branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
 
 ### Deploying to any static file host
 
