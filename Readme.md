@@ -164,19 +164,17 @@ Once your repo and Azure are set up in this way, whenever your master branch is 
 
 You can easily deploy to an Azure Blob Storage static website using GitHub Actions (if your project is on GitHub):
 
-*	In Azure Portal, generate an SAS token for your site's blob storage account. Give it a very long expiration (10 years, for example).
-*	Copy the SAS URL given to you when generating the token.
-*	In GitHub, go to Settings, then Secrets, and then add a secret called `PUBLISH_SAS_URL` and paste your SAS token.
+*	[Generate a SAS URL for your storage account and create a Secret in your repo](https://github.com/marketplace/actions/deploy-to-azure-storage#how-to-get-a-sas-url-and-save-it).
 *	In GitHub, open this repo's [`.github/workflows/publish-static-website.yml`](.github/workflows/publish-static-website.yml), edit it, and uncomment the two `push:` and `branches: [ master ]` lines to enable automatic deployments.
 	*	If you prefer, you can manually trigger a deployment from the Actions tab.
 
 Once your repo is set up this way, whenever your master branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
 
+Tip: You can use my [`deploy-to-azure-storage`](https://github.com/marketplace/actions/deploy-to-azure-storage) Action to automatically deploy static sites built with other templates, too.
+
 ### Deploying to any static file host
 
 You can also deploy the site to any static file host. Just run a production build (`yarn build`; see above) and upload the contents of the `build` folder to a host of your choice.
-
-Tip: The [`.github/scripts/publish-static-website.ps1`](.github/scripts/publish-static-website.ps1) script in this repo isn't actually GitHub-specific, and can be used in an Azure DevOps Pipelines deployment. See the script for instructions.
 
 ## Technologies used
 
@@ -195,4 +193,4 @@ For more information, including licenses for these packages, check the `node_mod
 
 ---
 
-This template is © 2020 Travis Spomer but released to the public domain under the [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0) license. This license does not apply to sites built with this template, nor to external libraries referenced by this template; only the template itself.
+This template is © 2020 Travis Spomer but released to the public domain under the [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0) license. This license does not apply to sites built with this template, nor to external libraries referenced by this template; only the template itself. It is provided as-is and no warranties are made as to its functionality or suitability.
