@@ -158,17 +158,17 @@ You can deploy to Azure Static Web Apps with very minimal configuration:
 *	Set `azureStaticWebApps` to `true` in [`staticsite.json`](staticsite.json).
 *	When creating the app in Azure Portal, set the build artifacts folder to `build` (it's empty by default).
 
-Once your repo and Azure are set up in this way, whenever your master branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
+Once your repo and Azure are set up in this way, whenever your default branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
 
 ### Deploying to Azure Blob Storage
 
 You can easily deploy to an Azure Blob Storage static website using GitHub Actions (if your project is on GitHub):
 
 *	[Generate a SAS URL for your storage account and create a Secret in your repo](https://github.com/marketplace/actions/deploy-to-azure-storage#how-to-get-a-sas-url-and-save-it).
-*	In GitHub, open this repo's [`.github/workflows/publish-static-website.yml`](.github/workflows/publish-static-website.yml), edit it, and uncomment the two `push:` and `branches: [ master ]` lines to enable automatic deployments.
+*	In GitHub, open this repo's [`.github/workflows/publish-static-website.yml`](.github/workflows/publish-static-website.yml), edit it, and uncomment the two `push:` and `branches: [ $default-branch ]` lines to enable automatic deployments.
 	*	If you prefer, you can manually trigger a deployment from the Actions tab.
 
-Once your repo is set up this way, whenever your master branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
+Once your repo is set up this way, whenever your default branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
 
 Tip: You can use my [`deploy-to-azure-storage`](https://github.com/marketplace/actions/deploy-to-azure-storage) Action to automatically deploy static sites built with other templates, too.
 
