@@ -22,7 +22,7 @@
 		"gulp-marked": "^1.0.0",
 		"gulp-rename": "^2.0.0",
 		"gulp-sass": "^4.1.0",
-		"gulp-terser": "^1.2.1",
+		"gulp-terser": "1.2.0",
 		"gulp-typescript": "^6.0.0-alpha.1",
 		"gulp-wrap": "^0.15.0",
 		"handlebars": "^4.7.6",
