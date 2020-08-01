@@ -3,7 +3,7 @@ name: Deploy website
 on:
   workflow_dispatch:
 #  push:
-#    branches: [ master ]
+#    branches: [ $default-branch ]
 
 jobs:
   build-and-deploy:
