@@ -117,6 +117,7 @@ $font-mono: Inconsolata, Consolas, SFMono-Regular, "Roboto Mono", monospace;
 @mixin caps
 {
 	font-family: $font-caps;
+	font-feature-settings: "c2sc" 1;
 	text-transform: uppercase;
 }
 
@@ -167,6 +168,7 @@ html
 	font-family: $font-body;
 	font-size: $font-size;
 	font-variant-numeric: lining-nums;
+	font-feature-settings: "lnum" 1; /* Otherwise it doesn't work on ::marker in Chromium */
 	font-weight: $font-weight;
 	line-height: $line-height-multiple;
 	color: var(--foreground);
@@ -1056,16 +1058,18 @@ hr
 	border-top: .5em solid var(--grey-light3);
 }
 
-img
+img, svg
 {
 	border: none;
 	page-break-inside: avoid;
+	vertical-align: top;
 }
 
 input, button, textarea, select, option, optgroup
 {
 	font-family: $font-body;
 	font-size: $font-size;
+	font-variant-numeric: lining-nums;
 	line-height: $line-height-multiple;
 }
 
