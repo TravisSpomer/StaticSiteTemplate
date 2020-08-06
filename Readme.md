@@ -42,7 +42,7 @@ In addition, in Windows, you must enable Developer Mode so that the site templat
 
 ### Building and running
 
-Whenever picking up a new version of the template, you need to make sure your dependencies are installed.  In Visual Studio Code:
+Whenever picking up a new version of the template, you need to make sure your dependencies are installed. In Visual Studio Code:
 
 1.	Terminal > Run Task
 2.	Install dependencies
@@ -113,6 +113,7 @@ Open [`staticsite.json`](staticsite.json) to configure options for the site.
 *	`defaultLayout`: Set to the name of the default layout template in `src/layouts`, without the extension. Default is `default`.
 *	`devServerPort`: The port to use when running the `serve` command. If not specified, browsersync will choose a port for you, likely 3000.
 *	`outputFolder`: Set to the name of the folder where you'd like the built site files to be created. Default is `build/`. The contents of this folder can be uploaded to your hosting provider as-is. **Important:** All files in this folder will be deleted when the output is built or cleaned.
+*	`allowSymlinks`: Set to `true` if the build pipeline can use symlinks when possible for faster performance, or `false` if files should always be copied. Default is `true`.
 
 ### Stuff you can safely delete
 

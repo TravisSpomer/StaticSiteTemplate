@@ -22,6 +22,8 @@ const GulpDebug = require("gulp-debug")
 // Check to make sure that the required pipeline options are set.
 const staticSiteJson = require("./staticsite.json")
 
+if (!("allowSymlinks" in staticSiteJson))
+	staticSiteJson.allowSymlinks = true
 if (!("azureStaticWebApps" in staticSiteJson))
 	staticSiteJson.azureStaticWebApps = false
 if (!("canonicalUrl" in staticSiteJson))
@@ -274,11 +276,12 @@ const redirects = (callback) =>
 
 	for (const routeData of routesJson.routes)
 	{
-		const contents = `<meta http-equiv=refresh content="0;url=${routeData.serve}"><link rel=canonical href="${staticSiteJson.canonicalUrl}${routeData.serve}">`
+		const contents = `<meta http-equiv=refresh content="0;url=${encodeURI(routeData.serve)}"><link rel=canonical href="${staticSiteJson.canonicalUrl}${encodeURI(routeData.serve)}">`
 
-		// If the route doesn't have an extension, treat it as a folder containing index.html.
+		// If the route doesn't have an extension, or it has a non-HTML extension, treat it as a folder containing index.html so that it gets the right content-type.
 		let filename = Path.join(staticSiteJson.outputFolder, routeData.route)
-		if (Path.extname(filename).length === 0)
+		const ext = Path.extname(filename)
+		if (ext !== ".html" && ext !== ".htm")
 			filename = Path.join(filename, "index.html")
 
 		// Before saving the file, create its folder if necessary.
@@ -302,14 +305,18 @@ if (!staticSiteJson.azureStaticWebApps)
 
 const symlink = (callback) =>
 {
-	const output = Gulp
+	let output = Gulp
 		.src(staticGlob, { nodir: true })
-		.pipe(Gulp.symlink(staticSiteJson.outputFolder, { relativeSymlinks: false }))
+
+	if (staticSiteJson.allowSymlinks)
+		output = output.pipe(Gulp.symlink(staticSiteJson.outputFolder, { relativeSymlinks: false, overwrite: true }))
+	else
+		output = output.pipe(Gulp.dest(staticSiteJson.outputFolder))
 
 	callback()
 	return output
 }
-symlink.displayName = "Symlink static files"
+symlink.displayName = staticSiteJson.allowSymlinks ? "Symlink static files" : "Copy static files"
 
 // ------------------------------------------------------------
 
@@ -318,14 +325,18 @@ const webModulesOutputFolder = `${staticSiteJson.outputFolder}web_modules/`
 
 const webModules = (callback) =>
 {
-	const output = Gulp
+	let output = Gulp
 		.src(webModulesGlob)
-		.pipe(Gulp.symlink(webModulesOutputFolder, { relativeSymlinks: false, overwrite: true }))
+
+	if (staticSiteJson.allowSymlinks)
+		output = output.pipe(Gulp.symlink(webModulesOutputFolder, { relativeSymlinks: false, overwrite: true }))
+	else
+		output = output.pipe(Gulp.dest(webModulesOutputFolder))
 
 	callback()
 	return output
 }
-webModules.displayName = "Symlink web_modules"
+webModules.displayName = staticSiteJson.allowSymlinks ? "Symlink web_modules" : "Copy web_modules"
 
 const webModulesMin = (callback) =>
 {
@@ -341,16 +352,26 @@ webModulesMin.displayName = "Copy and minify web_modules"
 
 // ------------------------------------------------------------
 
+let isServerRunning = false
+
 const serve = (callback) =>
 {
 	const browserSyncOptions = require("./browsersync.json")
 	if (staticSiteJson.devServerPort && !browserSyncOptions.port)
 		browserSyncOptions.port = staticSiteJson.devServerPort
 	BrowserSync.init(browserSyncOptions)
+	isServerRunning = true
 
 	callback()
 }
 serve.displayName = "Start a server"
+
+const reloadServer = (callback) =>
+{
+	if (isServerRunning)
+		BrowserSync.reload()
+	callback()
+}
 
 // ------------------------------------------------------------
 
@@ -373,11 +394,11 @@ const build = Gulp.parallel(typescriptMin, htmlMin, markdownMin, cssMin, webModu
 
 const watch = (callback) =>
 {
-	Gulp.watch(typescriptGlob, typescript)
-	Gulp.watch([...htmlGlob, ...templateGlob], html)
-	Gulp.watch([...markdownGlob, ...templateGlob], markdown)
-	Gulp.watch(sassGlob, css)
-	Gulp.watch(routesJsonGlob, redirects)
+	Gulp.watch(typescriptGlob, Gulp.series(typescript, reloadServer))
+	Gulp.watch([...htmlGlob, ...templateGlob], Gulp.series(html, reloadServer))
+	Gulp.watch([...markdownGlob, ...templateGlob], Gulp.series(markdown, reloadServer))
+	Gulp.watch(sassGlob, Gulp.series(css, reloadServer))
+	Gulp.watch(routesJsonGlob, Gulp.series(redirects, reloadServer))
 	// We do a full build before watching, so it's not necessary to do symlinking again here.
 
 	callback()

@@ -1,4 +1,5 @@
 {
+	"allowSymlinks": false,
 	"azureStaticWebApps": false,
 	"canonicalUrl": "https://www.example.com",
 	"defaultLayout": "default",
