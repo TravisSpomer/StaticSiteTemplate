@@ -27,11 +27,16 @@
 		"gulp-wrap": "^0.15.0",
 		"handlebars": "^4.7.6",
 		"node-sass": "^4.14.0",
-		"snowpack": "^2.6.4",
+		"snowpack": "^2.7.7",
 		"typescript": "^3.9.7"
 	},
-	"webDependencies": {
+	"dependencies": {
 		"lit-element": "^2.3.1"
+	},
+	"snowpack": {
+		"install": [
+			"lit-element"
+		]
 	},
 	"scripts": {
 		"install": "snowpack install",
