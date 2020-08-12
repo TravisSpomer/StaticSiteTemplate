@@ -108,12 +108,12 @@ Compatibility with Internet Explorer, "Spartan" (pre-Chromium) Edge, and other n
 
 Open [`staticsite.json`](staticsite.json) to configure options for the site.
 
+*	`allowSymlinks`: Set to `true` if the build pipeline can use symlinks when possible for faster performance, or `false` if files should always be copied. Default is `true`.
 *	`azureStaticWebApps`: Set to `true` if deploying this site to Azure Static Web Apps, and `false` otherwise. Default is `false`.
 *	`canonicalUrl`: **Required.** Set this to the canonical deployed URL of the site. For example: `"https://www.example.com/"`.
 *	`defaultLayout`: Set to the name of the default layout template in `src/layouts`, without the extension. Default is `default`.
 *	`devServerPort`: The port to use when running the `serve` command. If not specified, browsersync will choose a port for you, likely 3000.
 *	`outputFolder`: Set to the name of the folder where you'd like the built site files to be created. Default is `build/`. The contents of this folder can be uploaded to your hosting provider as-is. **Important:** All files in this folder will be deleted when the output is built or cleaned.
-*	`allowSymlinks`: Set to `true` if the build pipeline can use symlinks when possible for faster performance, or `false` if files should always be copied. Default is `true`.
 
 ### Stuff you can safely delete
 
@@ -123,7 +123,7 @@ The template includes a few files that aren't necessary that you can feel free t
 *	`site.ts` is the TypeScript source for the site. There's nothing in it, so it'll generate an empty JavaScript file. You don't need this if you aren't writing any client script.
 *	`humans.txt` is just for your benefit and is not necessary in any way.
 *	The `plain.hbs` and `none.hbs` layouts aren't used by anything in the template, and you may not need them.
-*	`lit-element` in `webDependencies` is only used as an example of how to include lightweight NPM packages for use in client-side script. You can remove it from `webDependencies`.
+*	`lit-element` in `dependencies` is only used as an example of how to include lightweight NPM packages for use in client-side script. You can remove it from `dependencies` and `snowpack.install`.
 
 ### Creating routes and redirects
 
