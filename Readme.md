@@ -110,6 +110,7 @@ Open [`staticsite.json`](staticsite.json) to configure options for the site.
 
 *	`allowSymlinks`: Set to `true` if the build pipeline can use symlinks when possible for faster performance, or `false` if files should always be copied. Default is `true`.
 *	`azureStaticWebApps`: Set to `true` if deploying this site to Azure Static Web Apps, and `false` otherwise. Default is `false`.
+*	`cacheBusting`: Set to `true` to add a build timestamp to the filenames of your JS and CSS files, and also replace `"{{timestamp}}"` in your pages and layouts with that build timestamp. Default is `false`. (When disabled, `"{{timestamp}}"` in your pages and layouts will be left as-is.)
 *	`canonicalUrl`: **Required.** Set this to the canonical deployed URL of the site. For example: `"https://www.example.com/"`.
 *	`defaultLayout`: Set to the name of the default layout template in `src/layouts`, without the extension. Default is `default`.
 *	`devServerPort`: The port to use when running the `serve` command. If not specified, browsersync will choose a port for you, likely 3000.

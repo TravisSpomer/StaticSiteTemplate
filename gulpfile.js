@@ -4,7 +4,9 @@ const FrontMatter = require("gulp-front-matter")
 const FS = require("fs")
 const Gulp = require("gulp")
 const GulpHtmlMin = require("gulp-htmlmin")
+const GulpIf = require("gulp-if")
 const GulpRename = require("gulp-rename")
+const GulpReplace = require("gulp-replace")
 const Handlebars = require("handlebars")
 const Marked = require("gulp-marked")
 const Path = require("path")
@@ -26,6 +28,8 @@ if (!("allowSymlinks" in staticSiteJson))
 	staticSiteJson.allowSymlinks = true
 if (!("azureStaticWebApps" in staticSiteJson))
 	staticSiteJson.azureStaticWebApps = false
+if (!("cacheBusting" in staticSiteJson))
+	staticSiteJson.cacheBusting = false
 if (!("canonicalUrl" in staticSiteJson))
 	throw new Error("The canonicalUrl setting must be specified in staticsite.json.")
 if (!("defaultLayout" in staticSiteJson))
@@ -38,8 +42,19 @@ else if (staticSiteJson.outputFolder.substring(staticSiteJson.outputFolder.lengt
 // ------------------------------------------------------------
 
 // ------------------------------------------------------------
-// Helper functions
+// Helper functions and constants
 // ------------------------------------------------------------
+
+const now = new Date()
+const buildTimestamp = `${now.getUTCFullYear()}${(now.getUTCMonth() + 1).toString().padStart(2, "0")}${(now.getUTCDate() + 1).toString().padStart(2, "0")}${(now.getUTCHours() + 1).toString().padStart(2, "0")}${(now.getUTCMinutes() + 1).toString().padStart(2, "0")}`
+
+const renameWithTimestamp = (path) =>
+{
+	return ({
+		...path,
+		basename: `${path.basename}.${buildTimestamp}`,
+	})
+}
 
 const templateGlob = ["src/layouts/*.hbs"]
 
@@ -57,6 +72,8 @@ const clearCachedTemplates = () =>
 	cachedTemplates = {}
 	Handlebars.unregisterPartial("base")
 	Handlebars.registerPartial("base", FS.readFileSync("src/layouts/base.hbs").toString())
+	if (staticSiteJson.cacheBusting)
+		Handlebars.registerHelper("timestamp", () => buildTimestamp)
 }
 clearCachedTemplates()
 
@@ -111,6 +128,7 @@ const typescript = (callback) =>
 	const output = Gulp
 		.src(typescriptGlob)
 		.pipe(typescriptProject())
+		.pipe(GulpIf(staticSiteJson.cacheBusting, GulpRename(renameWithTimestamp)))
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
 
 	callback()
@@ -123,6 +141,7 @@ const typescriptMin = (callback) =>
 	const output = Gulp
 		.src(typescriptGlob)
 		.pipe(typescriptProject())
+		.pipe(GulpIf(staticSiteJson.cacheBusting, GulpRename(renameWithTimestamp)))
 		.pipe(Terser(terserOptions))
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
 
@@ -172,6 +191,7 @@ const html = (callback) =>
 		.src(htmlGlob)
 		.pipe(GulpRename(renameWithoutExtension))
 		.pipe(FrontMatter())
+		.pipe(GulpIf(staticSiteJson.cacheBusting, GulpReplace("{{timestamp}}", buildTimestamp)))
 		.pipe(wrapInTemplate())
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
 
@@ -187,6 +207,7 @@ const htmlMin = (callback) =>
 		.src(htmlGlob)
 		.pipe(GulpRename(renameWithoutExtension))
 		.pipe(FrontMatter())
+		.pipe(GulpIf(staticSiteJson.cacheBusting, GulpReplace("{{timestamp}}", buildTimestamp)))
 		.pipe(wrapInTemplate())
 		.pipe(GulpHtmlMin(GulpHtmlMinOptions))
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
@@ -244,6 +265,7 @@ const css = (callback) =>
 	const output = Gulp
 		.src(sassGlob)
 		.pipe(Sass({ outputStyle: "expanded" }).on("error", Sass.logError))
+		.pipe(GulpIf(staticSiteJson.cacheBusting, GulpRename(renameWithTimestamp)))
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
 
 	callback()
@@ -256,6 +278,7 @@ const cssMin = (callback) =>
 	const output = Gulp
 		.src(sassGlob)
 		.pipe(Sass({ outputStyle: "compressed" }).on("error", Sass.logError))
+		.pipe(GulpIf(staticSiteJson.cacheBusting, GulpRename(renameWithTimestamp)))
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
 
 	callback()
@@ -305,13 +328,12 @@ if (!staticSiteJson.azureStaticWebApps)
 
 const symlink = (callback) =>
 {
-	let output = Gulp
+	const output = Gulp
 		.src(staticGlob, { nodir: true })
-
-	if (staticSiteJson.allowSymlinks)
-		output = output.pipe(Gulp.symlink(staticSiteJson.outputFolder, { relativeSymlinks: false, overwrite: true }))
-	else
-		output = output.pipe(Gulp.dest(staticSiteJson.outputFolder))
+		.pipe(GulpIf(staticSiteJson.allowSymlinks,
+			Gulp.symlink(staticSiteJson.outputFolder, { relativeSymlinks: false, overwrite: true }),
+			Gulp.dest(staticSiteJson.outputFolder)
+		))
 
 	callback()
 	return output
@@ -325,13 +347,12 @@ const webModulesOutputFolder = `${staticSiteJson.outputFolder}web_modules/`
 
 const webModules = (callback) =>
 {
-	let output = Gulp
+	const output = Gulp
 		.src(webModulesGlob)
-
-	if (staticSiteJson.allowSymlinks)
-		output = output.pipe(Gulp.symlink(webModulesOutputFolder, { relativeSymlinks: false, overwrite: true }))
-	else
-		output = output.pipe(Gulp.dest(webModulesOutputFolder))
+		.pipe(GulpIf(staticSiteJson.allowSymlinks,
+			Gulp.symlink(webModulesOutputFolder, { relativeSymlinks: false, overwrite: true }),
+			Gulp.dest(webModulesOutputFolder)
+		))
 
 	callback()
 	return output
