@@ -21,19 +21,12 @@
 	"javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
 	"javascript.format.semicolons": "remove",
 	"javascript.preferences.quoteStyle": "double",
-	"liveServer.settings.host": "localhost",
-	"liveServer.settings.ignoreFiles": [
-		"*",
-		"src/**",
-		"node_modules/**",
-		"web_modules/**"
-	],
-	"liveServer.settings.root": "/build",
 	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": false,
 	"typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
 	"typescript.format.placeOpenBraceOnNewLineForFunctions": true,
 	"typescript.format.semicolons": "remove",
 	"typescript.preferences.quoteStyle": "double",
+	"typescript.tsdk": "node_modules\\typescript\\lib",
 	"[typescript]": {
 		"editor.formatOnSave": false,
 		"editor.formatOnType": true,
