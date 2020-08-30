@@ -171,7 +171,7 @@ for (const errorPage of routesJson.platformErrorOverrides)
 
 const renameWithoutExtension = (path) =>
 {
-	if (pathsToNotRename.has(`${path.dirname}/${path.basename}${path.extname}`)) return path
+	if (pathsToNotRename.has(`${path.dirname === "." ? "." : "./" + path.dirname}/${path.basename}${path.extname}`)) return path
 	if (path.basename === "index") return path
 
 	return ({
