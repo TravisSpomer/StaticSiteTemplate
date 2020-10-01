@@ -96,12 +96,7 @@ const routesJson = require(`./${routesJsonGlob[0]}`)
 // Tasks
 // ------------------------------------------------------------
 
-const clean = async (callback) =>
-{
-	await Del(`${staticSiteJson.outputFolder}**`)
-
-	callback()
-}
+const clean = () => Del(`${staticSiteJson.outputFolder}**`)
 clean.displayName = "Clean output folder"
 
 // ------------------------------------------------------------
@@ -123,31 +118,19 @@ const terserOptions =
 const typescriptProject = TypeScript.createProject("tsconfig.json")
 const typescriptGlob = ["src/**/*.ts"]
 
-const typescript = (callback) =>
-{
-	const output = Gulp
-		.src(typescriptGlob)
-		.pipe(typescriptProject())
-		.pipe(GulpIf(staticSiteJson.cacheBusting, GulpRename(renameWithTimestamp)))
-		.pipe(Gulp.dest(staticSiteJson.outputFolder))
-
-	callback()
-	return output
-}
+const typescript = () => Gulp
+	.src(typescriptGlob)
+	.pipe(typescriptProject())
+	.pipe(GulpIf(staticSiteJson.cacheBusting, GulpRename(renameWithTimestamp)))
+	.pipe(Gulp.dest(staticSiteJson.outputFolder))
 typescript.displayName = "Compile TypeScript"
 
-const typescriptMin = (callback) =>
-{
-	const output = Gulp
-		.src(typescriptGlob)
-		.pipe(typescriptProject())
-		.pipe(GulpIf(staticSiteJson.cacheBusting, GulpRename(renameWithTimestamp)))
-		.pipe(Terser(terserOptions))
-		.pipe(Gulp.dest(staticSiteJson.outputFolder))
-
-	callback()
-	return output
-}
+const typescriptMin = () => Gulp
+	.src(typescriptGlob)
+	.pipe(typescriptProject())
+	.pipe(GulpIf(staticSiteJson.cacheBusting, GulpRename(renameWithTimestamp)))
+	.pipe(Terser(terserOptions))
+	.pipe(Gulp.dest(staticSiteJson.outputFolder))
 typescriptMin.displayName = "Compile and minify TypeScript"
 
 // ------------------------------------------------------------
@@ -184,26 +167,23 @@ const renameWithoutExtension = (path) =>
 
 const htmlGlob = ["src/**/*.html", "src/**/*.htm"]
 
-const html = (callback) =>
+const html = () =>
 {
 	clearCachedTemplates()
-	const output = Gulp
+	return Gulp
 		.src(htmlGlob)
 		.pipe(GulpRename(renameWithoutExtension))
 		.pipe(FrontMatter())
 		.pipe(GulpIf(staticSiteJson.cacheBusting, GulpReplace("{{timestamp}}", buildTimestamp)))
 		.pipe(wrapInTemplate())
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
-
-	callback()
-	return output
 }
 html.displayName = "Process HTML pages"
 
-const htmlMin = (callback) =>
+const htmlMin = () =>
 {
 	clearCachedTemplates()
-	const output = Gulp
+	return Gulp
 		.src(htmlGlob)
 		.pipe(GulpRename(renameWithoutExtension))
 		.pipe(FrontMatter())
@@ -211,9 +191,6 @@ const htmlMin = (callback) =>
 		.pipe(wrapInTemplate())
 		.pipe(GulpHtmlMin(GulpHtmlMinOptions))
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
-
-	callback()
-	return output
 }
 htmlMin.displayName = "Process and minify HTML pages"
 
@@ -221,26 +198,23 @@ htmlMin.displayName = "Process and minify HTML pages"
 
 const markdownGlob = ["src/**/*.md"]
 
-const markdown = (callback) =>
+const markdown = () =>
 {
 	clearCachedTemplates()
-	const output = Gulp
+	return Gulp
 		.src(markdownGlob)
 		.pipe(FrontMatter())
 		.pipe(Marked())
 		.pipe(wrapInTemplate())
 		.pipe(GulpRename(renameWithoutExtension))
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
-
-	callback()
-	return output
 }
 markdown.displayName = "Convert Markdown to HTML"
 
-const markdownMin = (callback) =>
+const markdownMin = () =>
 {
 	clearCachedTemplates()
-	const output = Gulp
+	return Gulp
 		.src(markdownGlob)
 		.pipe(FrontMatter())
 		.pipe(Marked())
@@ -248,9 +222,6 @@ const markdownMin = (callback) =>
 		.pipe(GulpHtmlMin(GulpHtmlMinOptions))
 		.pipe(GulpRename(renameWithoutExtension))
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
-
-	callback()
-	return output
 }
 markdownMin.displayName = "Convert Markdown to HTML and minify"
 
@@ -260,29 +231,23 @@ Sass.compiler = require("node-sass")
 
 const sassGlob = ["src/**/*.scss"]
 
-const css = (callback) =>
+const css = () =>
 {
-	const output = Gulp
+	return Gulp
 		.src(sassGlob)
 		.pipe(Sass({ outputStyle: "expanded" }).on("error", Sass.logError))
 		.pipe(GulpIf(staticSiteJson.cacheBusting, GulpRename(renameWithTimestamp)))
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
-
-	callback()
-	return output
 }
 css.displayName = "Compile SASS into CSS"
 
-const cssMin = (callback) =>
+const cssMin = () =>
 {
-	const output = Gulp
+	return Gulp
 		.src(sassGlob)
 		.pipe(Sass({ outputStyle: "compressed" }).on("error", Sass.logError))
 		.pipe(GulpIf(staticSiteJson.cacheBusting, GulpRename(renameWithTimestamp)))
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
-
-	callback()
-	return output
 }
 cssMin.displayName = "Compile SASS into CSS and minify"
 
@@ -294,7 +259,7 @@ const redirects = (callback) =>
 	if (staticSiteJson.azureStaticWebApps)
 	{
 		callback()
-		return null
+		return
 	}
 
 	for (const routeData of routesJson.routes)
@@ -316,7 +281,6 @@ const redirects = (callback) =>
 	}
 
 	callback()
-	return null
 }
 redirects.displayName = "Generate redirects"
 
@@ -326,18 +290,12 @@ const staticGlob = ["src/**", "!src", "!src/**/*.{ts,html,htm,md,scss,hbs}"]
 if (!staticSiteJson.azureStaticWebApps)
 	staticGlob.push("!src/routes.json")
 
-const symlink = (callback) =>
-{
-	const output = Gulp
-		.src(staticGlob, { nodir: true })
-		.pipe(GulpIf(staticSiteJson.allowSymlinks,
-			Gulp.symlink(staticSiteJson.outputFolder, { relativeSymlinks: false, overwrite: true }),
-			Gulp.dest(staticSiteJson.outputFolder)
-		))
-
-	callback()
-	return output
-}
+const symlink = () => Gulp
+	.src(staticGlob, { nodir: true })
+	.pipe(GulpIf(staticSiteJson.allowSymlinks,
+		Gulp.symlink(staticSiteJson.outputFolder, { relativeSymlinks: false, overwrite: true }),
+		Gulp.dest(staticSiteJson.outputFolder)
+	))
 symlink.displayName = staticSiteJson.allowSymlinks ? "Symlink static files" : "Copy static files"
 
 // ------------------------------------------------------------
@@ -345,30 +303,18 @@ symlink.displayName = staticSiteJson.allowSymlinks ? "Symlink static files" : "C
 const webModulesGlob = ["web_modules/**/*.js"]
 const webModulesOutputFolder = `${staticSiteJson.outputFolder}web_modules/`
 
-const webModules = (callback) =>
-{
-	const output = Gulp
-		.src(webModulesGlob)
-		.pipe(GulpIf(staticSiteJson.allowSymlinks,
-			Gulp.symlink(webModulesOutputFolder, { relativeSymlinks: false, overwrite: true }),
-			Gulp.dest(webModulesOutputFolder)
-		))
-
-	callback()
-	return output
-}
+const webModules = () => Gulp
+	.src(webModulesGlob)
+	.pipe(GulpIf(staticSiteJson.allowSymlinks,
+		Gulp.symlink(webModulesOutputFolder, { relativeSymlinks: false, overwrite: true }),
+		Gulp.dest(webModulesOutputFolder)
+	))
 webModules.displayName = staticSiteJson.allowSymlinks ? "Symlink web_modules" : "Copy web_modules"
 
-const webModulesMin = (callback) =>
-{
-	const output = Gulp
-		.src(webModulesGlob)
-		.pipe(Terser(terserOptions))
-		.pipe(Gulp.dest(webModulesOutputFolder))
-
-	callback()
-	return output
-}
+const webModulesMin = () => Gulp
+	.src(webModulesGlob)
+	.pipe(Terser(terserOptions))
+	.pipe(Gulp.dest(webModulesOutputFolder))
 webModulesMin.displayName = "Copy and minify web_modules"
 
 // ------------------------------------------------------------
