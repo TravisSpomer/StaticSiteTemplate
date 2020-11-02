@@ -1,5 +1,6 @@
 const BrowserSync = require("browser-sync")
 const Del = require("del")
+const ESBuild = require("gulp-esbuild")
 const FrontMatter = require("gulp-front-matter")
 const FS = require("fs")
 const Gulp = require("gulp")
@@ -12,7 +13,6 @@ const Marked = require("gulp-marked")
 const Path = require("path")
 const Sass = require("gulp-sass")
 const Wrap = require("gulp-wrap")
-const Terser = require("gulp-terser")
 const TypeScript = require("gulp-typescript")
 // eslint-disable-next-line @typescript-eslint/no-unused-vars-experimental
 const GulpDebug = require("gulp-debug")
@@ -101,35 +101,39 @@ clean.displayName = "Clean output folder"
 
 // ------------------------------------------------------------
 
-const terserOptions =
+const typescriptGlob = ["src/**/*.ts"]
+
+const esbuildOptions =
 {
-	keep_fnames: true,
-	mangle: false,
-	compress: {
-		ecma: 2015,
-		unsafe: true,
-		warnings: true,
-	},
-	output: {
-		comments: false,
-	}
+	format: "esm",
+	sourcemap: "inline",
+	target: "es6",
+}
+const esbuildOptionsMin =
+{
+	...esbuildOptions,
+	minify: true,
+	sourcemap: false,
 }
 
 const typescriptProject = TypeScript.createProject("tsconfig.json")
-const typescriptGlob = ["src/**/*.ts"]
+
+const typeChecking = () => Gulp
+	.src(typescriptGlob)
+	.pipe(typescriptProject())
+typeChecking.displayName = "Type checking"
 
 const typescript = () => Gulp
 	.src(typescriptGlob)
-	.pipe(typescriptProject())
+	.pipe(ESBuild(esbuildOptions))
 	.pipe(GulpIf(staticSiteJson.cacheBusting, GulpRename(renameWithTimestamp)))
 	.pipe(Gulp.dest(staticSiteJson.outputFolder))
 typescript.displayName = "Compile TypeScript"
 
 const typescriptMin = () => Gulp
 	.src(typescriptGlob)
-	.pipe(typescriptProject())
+	.pipe(ESBuild(esbuildOptionsMin))
 	.pipe(GulpIf(staticSiteJson.cacheBusting, GulpRename(renameWithTimestamp)))
-	.pipe(Terser(terserOptions))
 	.pipe(Gulp.dest(staticSiteJson.outputFolder))
 typescriptMin.displayName = "Compile and minify TypeScript"
 
@@ -313,7 +317,7 @@ webModules.displayName = staticSiteJson.allowSymlinks ? "Symlink web_modules" : 
 
 const webModulesMin = () => Gulp
 	.src(webModulesGlob)
-	.pipe(Terser(terserOptions))
+	.pipe(ESBuild(esbuildOptionsMin))
 	.pipe(Gulp.dest(webModulesOutputFolder))
 webModulesMin.displayName = "Copy and minify web_modules"
 
@@ -355,13 +359,14 @@ setupOutput.displayName = "Set up output folder"
 // Exports
 // ------------------------------------------------------------
 
-const dev = Gulp.parallel(typescript, html, markdown, css, webModules, redirects, symlink)
+const dev = Gulp.parallel(typeChecking, typescript, html, markdown, css, webModules, redirects, symlink)
+const devNoTypes = Gulp.parallel(typescript, html, markdown, css, webModules, redirects, symlink)
 
-const build = Gulp.parallel(typescriptMin, htmlMin, markdownMin, cssMin, webModulesMin, redirects, symlink)
+const build = Gulp.parallel(typeChecking, typescriptMin, htmlMin, markdownMin, cssMin, webModulesMin, redirects, symlink)
 
 const watch = (callback) =>
 {
-	Gulp.watch(typescriptGlob, Gulp.series(typescript, reloadServer))
+	Gulp.watch(typescriptGlob, Gulp.parallel(Gulp.series(typescript, reloadServer), typeChecking))
 	Gulp.watch([...htmlGlob, ...templateGlob], Gulp.series(html, reloadServer))
 	Gulp.watch([...markdownGlob, ...templateGlob], Gulp.series(markdown, reloadServer))
 	Gulp.watch(sassGlob, Gulp.series(css, reloadServer))
@@ -377,6 +382,7 @@ exports.dev = Gulp.series(setupOutput, clean, dev)
 exports.build = Gulp.series(setupOutput, clean, build)
 exports.watch = Gulp.series(setupOutput, clean, dev, watch)
 exports.serve = Gulp.series(setupOutput, serve)
-exports.start = Gulp.series(setupOutput, clean, dev, Gulp.parallel(watch, serve))
+exports.start = Gulp.series(setupOutput, clean, devNoTypes, Gulp.parallel(watch, serve, typeChecking))
+exports.startprod = Gulp.series(setupOutput, clean, build, serve)
 
 exports.default = exports.build
