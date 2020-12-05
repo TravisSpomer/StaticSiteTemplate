@@ -1070,7 +1070,7 @@ img, svg
 	vertical-align: top;
 }
 
-input, button, textarea, select, option, optgroup
+input, button, textarea, select, option, optgroup, a.button
 {
 	font-family: $font-body;
 	font-size: $font-size;
@@ -1137,8 +1137,9 @@ select
 	padding: .125em 0;
 }
 
-button, input[type=button], input[type=submit], input[type=reset]
+button, input[type=button], input[type=submit], input[type=reset], a.button
 {
+	display: inline-block;
 	padding: 5px 19px 5px 19px;
 	min-width: 6em;
 
@@ -1154,6 +1155,7 @@ button, input[type=button], input[type=submit], input[type=reset]
 
 	font-family: $font-accent;
 	font-weight: $font-weight-bold;
+	text-decoration: none;
 
 	user-select: none;
 
@@ -1189,7 +1191,7 @@ button, input[type=button], input[type=submit], input[type=reset]
 	}
 }
 
-button
+button, a.button
 {
 	&.accent
 	{
