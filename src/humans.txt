@@ -7,4 +7,4 @@
 
 /* SITE */
 
-	Built with: Visual Studio Code, TypeScript, Terser, Sass, Gulp, Snowpack, and more
+	Built with: Visual Studio Code, TypeScript, ESBuild, Sass, Gulp, Snowpack, and more

@@ -6,6 +6,7 @@
 
 :root
 {
+	/* TODO: Add enough semantic colors that .theme-dark is only referenced at the root */
 	--foreground: black;
 	--background: white;
 	--background-alt: var(--grey-light4);
@@ -18,7 +19,7 @@
 	--grey-light3: #eeeeee;
 	--grey-light2: #e5e5e5;
 	--grey-light1: #c3c3c3;
-	--grey-light-trans: rgba(246, 246, 246, 0.7);
+	--grey-light-trans: rgba(255, 255, 255, 0.7);
 	--grey: #a3a3a3;
 	--grey-dark1: #767676;
 	--grey-dark2: #595858;
@@ -58,6 +59,8 @@
 	--yellow-dark2: #bd4b00;
 	--yellow-dark3: #893700;
 	--yellow-dark4: #5e2500;
+
+	--ui-ref: #1b837f;
 
 	&.theme-dark
 	{
@@ -113,6 +116,9 @@ $font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Ne
 $font-accent: $font-body;
 $font-caps: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
 $font-mono: Inconsolata, Consolas, SFMono-Regular, "Roboto Mono", monospace;
+$font-ui: $font-body;
+$font-weight-ui: 600;
+$font-size-ui: $font-size;
 
 @mixin caps
 {
@@ -273,6 +279,11 @@ h1, h2, h3
 	page-break-after: avoid;
 }
 
+h1 + h2
+{
+	margin-top: (-$paragraph-spacing);
+}
+
 h1
 {
 	color: var(--primary-dark4);
@@ -420,7 +431,7 @@ table
 
 	margin: $paragraph-spacing 0 $line-height 0;
 
-	& + p, p + &
+	p + &
 	{
 		/* When next to a paragraph, indent to align with UL/OL */
 		margin-left: ($indent - 12px);
@@ -437,9 +448,16 @@ table
 		border-color: transparent transparent var(--grey) transparent;
 
 		vertical-align: top;
-		font-size: $font-size-compact;
-		font-weight: $font-weight-compact;
-		line-height: $line-height-multiple-compact;
+	}
+
+	&.compact
+	{
+		td, th
+		{
+			font-size: $font-size-compact;
+			font-weight: $font-weight-compact;
+			line-height: $line-height-multiple-compact;
+		}
 	}
 
 	th, thead td, tfoot td
@@ -465,6 +483,22 @@ table
 	tr
 	{
 		page-break-inside: avoid;
+	}
+
+	&.with-headers
+	{
+		h1, h2, h3
+		{
+			margin-top: 1em;
+		}
+	}
+
+	&.no-lines
+	{
+		td, th
+		{
+			border-width: 0;
+		}
 	}
 }
 
@@ -529,10 +563,8 @@ blockquote, aside
 		border-color: var(--grey-dark1);
 	}
 
-	&.left
+	&.left, &.right
 	{
-		@include float-left(200px);
-
 		margin-top: 0;
 		padding: 0;
 
@@ -545,6 +577,16 @@ blockquote, aside
 		{
 			color: var(--grey-light1);
 		}
+	}
+
+	&.left
+	{
+		@include float-left(200px);
+	}
+
+	&.right
+	{
+		@include float-right(200px);
 	}
 }
 
@@ -773,6 +815,12 @@ kbd
 		background-image: linear-gradient(to bottom, var(--grey-dark3), black);
 	}
 
+	img, svg
+	{
+		vertical-align: middle;
+		margin-bottom: 3px;
+	}
+
 	&::selection
 	{
 		color: white;
@@ -894,6 +942,19 @@ var
 	font-weight: $font-weight-bold;
 }
 
+b.ui
+{
+	color: var(--ui-ref);
+	font-family: $font-ui;
+	font-weight: $font-weight-ui;
+	font-size: $font-size-ui;
+
+	img, svg
+	{
+		vertical-align: baseline;
+	}
+}
+
 /* ============================================================
 	Page layout
 ============================================================ */
@@ -910,20 +971,15 @@ header
 	right: 0;
 	white-space: nowrap;
 	z-index: 99999;
-	padding: 0 8px 0 8px;
 
 	color: var(--foreground);
-	background-color:  var(--grey-light4);
-
-	border-width: 0 0 1px 0;
-	border-style: solid;
-	border-color: rgba(black, 0.1);
+	background-color:  white;
 
 	font-family: $font-accent;
 	font-weight: $font-weight-bold;
-	font-size: $font-size-tiny;
+	font-size: $font-size;
 	letter-spacing: .02em;
-	line-height: $line-height-multiple-tiny;
+	line-height: $line-height-multiple;
 
 	user-select: none;
 
@@ -959,10 +1015,13 @@ header
 
 	ul
 	{
-		display: inline-flex;
 		margin: 0;
 		padding: 0;
-	
+		height: 80px;
+
+		display: flex;
+		align-items: center;
+
 		list-style-type: none;
 	}
 	
@@ -975,36 +1034,51 @@ header
 	li > *:first-child
 	{
 		display: inline-block;
-		padding: 8px 16px 8px 16px;
+		margin: 0 8px;
+		padding: 0 8px;
 	}
 	
 	a, a:visited
 	{
-		color: var(--foreground);
+		color: var(--primary-dark2);
+		font-size: 20px;
+		line-height: 32px;
 		text-decoration: none;
+		@include caps;
 
 		.theme-dark &
 		{
 			color: var(--foreground);
+		}
+
+		img
+		{
+			transition: opacity 0.1s;
 		}
 	}
 	
 	a:hover, a:focus
 	{
 		color: var(--primary-dark2);
-		background-color: rgba(0, 0, 0, 0.025);
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
 
 		.theme-dark &
 		{
 			color: var(--primary-light2);
 			background-color: rgba(255, 255, 255, 0.2);
 		}
+
+		img, svg
+		{
+			opacity: 0.6;
+		}
 	}
 }
 
 main
 {
-	flex: 1 1 auto;
+	flex: 1 1 auto; /* required for IE11 instead of flex: 1; */
 	display: block;
 	margin: ($indent / 2);
 
@@ -1110,6 +1184,11 @@ input, button, textarea, select, option, optgroup, a.button
 		outline: none;
 		border-color: var(--primary);
 		box-shadow: 0 0 5px var(--primary-glow);
+	}
+
+	&::placeholder
+	{
+		opacity: 0.25;
 	}
 }
 
@@ -1289,6 +1368,9 @@ button, a.button
 
 label
 {
+	display: inline-block;
+	margin-top: .2em;
+
 	input[type=checkbox], input[type=radio]
 	{
 		margin-right: .5em;

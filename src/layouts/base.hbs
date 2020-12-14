@@ -10,6 +10,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 {{#if file.frontMatter.image}}
 	<meta property="og:image" content="{{site.canonicalUrl}}{{file.frontMatter.image}}" />
+{{else}}
+	<meta property="og:image" content="{{site.canonicalUrl}}/images/social/banner-v1.png" />
 {{/if}}
 	<link rel="stylesheet" href="/site.css" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap"> 
