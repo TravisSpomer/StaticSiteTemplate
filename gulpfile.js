@@ -39,6 +39,13 @@ if (!("outputFolder" in staticSiteJson))
 else if (staticSiteJson.outputFolder.substring(staticSiteJson.outputFolder.length - 2, 1) !== "/")
 	staticSiteJson.outputFolder += "/"
 
+// Override allowSymlinks to always be false on non-Windows systems because they only seem to work on Windows and I don't care about other platforms
+if (process.platform !== "win32" && staticSiteJson.allowSymlinks)
+{
+	staticSiteJson.allowSymlinks = false
+	console.log("Disabling symlink support (allowSymlinks) because they're only supported on Windows.")
+}
+
 // ------------------------------------------------------------
 
 // ------------------------------------------------------------

@@ -1,5 +1,5 @@
 {
-	"allowSymlinks": false,
+	"allowSymlinks": true,
 	"azureStaticWebApps": false,
 	"cacheBusting": false,
 	"canonicalUrl": "https://www.example.com",
