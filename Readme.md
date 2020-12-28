@@ -102,13 +102,13 @@ you could adapt the template to handle more than one base layout: see the call t
 
 ### Compatibility
 
-Compatibility with Internet Explorer, "Spartan" (pre-Chromium) Edge, and other non-modern browsers is not a goal. That just applies to the included CSS, though—if you replace my default CSS with something simpler, it would work just fine.
+Compatibility with Internet Explorer, Edge Legacy (pre-Chromium), and other non-modern browsers is not a goal. That just applies to the included CSS, though—if you replace my default CSS with something simpler, it would work just fine.
 
 ### Site options
 
 Open [`staticsite.json`](staticsite.json) to configure options for the site.
 
-*	`allowSymlinks`: Set to `true` if the build pipeline can use symlinks when possible for faster performance, or `false` if files should always be copied. Default is `true`.
+*	`allowSymlinks`: Set to `true` if the build pipeline can use symlinks when possible for faster performance, or `false` if files should always be copied. Default is `true`. This setting is ignored on non-Windows systems.
 *	`azureStaticWebApps`: Set to `true` if deploying this site to Azure Static Web Apps, and `false` otherwise. Default is `false`.
 *	`cacheBusting`: Set to `true` to add a build timestamp to the filenames of your JS and CSS files, and also replace `"{{timestamp}}"` in your pages and layouts with that build timestamp. Default is `false`. (When disabled, `"{{timestamp}}"` in your pages and layouts will be left as-is.)
 *	`canonicalUrl`: **Required.** Set this to the canonical deployed URL of the site. For example: `"https://www.example.com/"`.
@@ -123,8 +123,8 @@ The template includes a few files that aren't necessary that you can feel free t
 *	`page2.md` is just an example of how to write a page in Markdown and you should delete it.
 *	`site.ts` is the TypeScript source for the site. There's nothing in it, so it'll generate an empty JavaScript file. You don't need this if you aren't writing any client script.
 *	`humans.txt` is just for your benefit and is not necessary in any way.
-*	The `plain.hbs` and `none.hbs` layouts aren't used by anything in the template, and you may not need them.
-*	`lit-element` in `dependencies` is only used as an example of how to include lightweight NPM packages for use in client-side script. You can remove it from `dependencies` and `snowpack.install`.
+*	The `plain.hbs` and `none.hbs` layouts aren't used by anything in the template, and don't need them if you aren't using them directly.
+*	`lit-element` and `@travisspomer/tidbits` in `dependencies` are only used as examples of how to include lightweight NPM packages for use in client-side script. You can remove them from `dependencies` and `snowpack.install`.
 
 ### Creating routes and redirects
 
