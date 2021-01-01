@@ -9,7 +9,7 @@ const GulpIf = require("gulp-if")
 const GulpRename = require("gulp-rename")
 const GulpReplace = require("gulp-replace")
 const Handlebars = require("handlebars")
-const Marked = require("gulp-marked")
+const MarkdownIt = require("gulp-markdownit")
 const Path = require("path")
 const Sass = require("gulp-sass")
 const Wrap = require("gulp-wrap")
@@ -209,13 +209,25 @@ htmlMin.displayName = "Process and minify HTML pages"
 
 const markdownGlob = ["src/**/*.md"]
 
+const MarkdownOptions =
+{
+	options:
+	{
+		html: true,
+		linkify: true,
+		quotes: "“”‘’",
+		typographer: true,
+	},
+	plugins: [],
+}
+
 const markdown = () =>
 {
 	clearCachedTemplates()
 	return Gulp
 		.src(markdownGlob)
 		.pipe(FrontMatter())
-		.pipe(Marked())
+		.pipe(MarkdownIt(MarkdownOptions))
 		.pipe(wrapInTemplate())
 		.pipe(GulpRename(renameWithoutExtension))
 		.pipe(Gulp.dest(staticSiteJson.outputFolder))
@@ -228,7 +240,7 @@ const markdownMin = () =>
 	return Gulp
 		.src(markdownGlob)
 		.pipe(FrontMatter())
-		.pipe(Marked())
+		.pipe(MarkdownIt(MarkdownOptions))
 		.pipe(wrapInTemplate())
 		.pipe(GulpHtmlMin(GulpHtmlMinOptions))
 		.pipe(GulpRename(renameWithoutExtension))
