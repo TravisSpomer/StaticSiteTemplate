@@ -183,9 +183,8 @@ You can also deploy the site to any static file host. Just run a production buil
 *	[Handlebars](https://www.handlebarsjs.com/) for page templating.
 *	[TypeScript](https://www.typescriptlang.org/) for JavaScript transpilation.
 *	[ESLint](https://eslint.org/) for JavaScript linting and formatting.
-*	[Terser](https://terser.org/) for JavaScript minification.
 *	[SCSS (Sass)](https://sass-lang.com/) for CSS preprocessing and minification.
-*	[Marked](https://marked.js.org/) for Markdown to HTML transformation.
+*	[Markdown-It](https://github.com/markdown-it/markdown-it) for Markdown to HTML transformation.
 *	[HTML Minifier](https://github.com/kangax/html-minifier) for HTML minification.
 *	[Gulp](https://gulpjs.com/) for the build pipeline.
 *	[Snowpack](https://snowpack.dev/) for client package management.
@@ -195,4 +194,4 @@ For more information, including licenses for these packages, check the `node_mod
 
 ---
 
-This template is © 2020 Travis Spomer but released to the public domain under the [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0) license. This license does not apply to sites built with this template, nor to external libraries referenced by this template; only the template itself. It is provided as-is and no warranties are made as to its functionality or suitability.
+This template is © 2020-2021 Travis Spomer but released to the public domain under the [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0) license. This license does not apply to sites built with this template, nor to external libraries referenced by this template; only the template itself. It is provided as-is and no warranties are made as to its functionality or suitability.
