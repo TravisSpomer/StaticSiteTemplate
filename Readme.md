@@ -167,8 +167,9 @@ Once your repo and Azure are set up in this way, whenever your default branch is
 You can easily deploy to an Azure Blob Storage static website using GitHub Actions (if your project is on GitHub):
 
 *	[Generate a SAS URL for your storage account and create a Secret in your repo](https://github.com/marketplace/actions/deploy-to-azure-storage#how-to-get-a-sas-url-and-save-it).
-*	In GitHub, open this repo's [`.github/workflows/publish-static-website.yml`](.github/workflows/publish-static-website.yml), edit it, and uncomment the two `push:` and `branches: [ $default-branch ]` lines to enable automatic deployments.
+*	In GitHub, open this repo's [`.github/workflows/publish.yml`](.github/workflows/publish.yml), edit it, and uncomment the two `push:` and `branches: [ $default-branch ]` lines at the top to enable automatic deployments.
 	*	If you prefer, you can manually trigger a deployment from the Actions tab.
+	*	By default, GitHub won't allow you to edit that file from Visual Studio code, only from github.com.
 
 Once your repo is set up this way, whenever your default branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
 
@@ -177,6 +178,10 @@ Tip: You can use my [`deploy-to-azure-storage`](https://github.com/marketplace/a
 ### Deploying to any static file host
 
 You can also deploy the site to any static file host. Just run a production build (`yarn build`; see above) and upload the contents of the `build` folder to a host of your choice.
+
+### Optionally purging an Azure CDN
+
+The deployment workflow included with this template can also automatically purge an associated Azure CDN endpoint whenever the site's contents change, to minimize the length of time when files are stale. Open [`.github/workflows/publish.yml`](.github/workflows/publish.yml) on github.com, and see the instructions near `ENABLE_CDN_PURGE`. Note that CDN purging requires a separate secret in addition to the `DEPLOY_SAS_URL` secret you already set up.
 
 ## Technologies used
 
