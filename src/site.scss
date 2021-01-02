@@ -265,11 +265,6 @@ h1, h2, h3, h4, h5, h6
 	font-family: $font-accent;
 	font-weight: $font-weight-bold;
 	letter-spacing: -0.03em;
-
-	&:first-of-type
-	{
-		margin-top: 0;
-	}
 }
 
 h1, h2, h3
@@ -291,6 +286,11 @@ h1
 	font-size: 36px;
 	line-height: 48px;
 
+	&:first-of-type
+	{
+		margin-top: 0;
+	}
+
 	.theme-dark &
 	{
 		color: var(--primary-light1);
@@ -299,6 +299,8 @@ h1
 
 h2
 {
+	margin-top: $indent;
+
 	color: var(--primary-dark3);
 
 	font-size: 28px;
