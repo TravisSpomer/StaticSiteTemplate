@@ -1,7 +1,7 @@
 {
 	"allowSymlinks": true,
 	"azureStaticWebApps": false,
-	"cacheBusting": false,
+	"cacheBusting": true,
 	"canonicalUrl": "https://www.example.com",
 	"defaultLayout": "default",
 	"devServerPort": 80,
