@@ -192,6 +192,7 @@ The deployment workflow included with this template can also automatically purge
 *	[SCSS (Sass)](https://sass-lang.com/) for CSS preprocessing and minification.
 *	[Markdown-It](https://github.com/markdown-it/markdown-it) for Markdown to HTML transformation.
 *	[HTML Minifier](https://github.com/kangax/html-minifier) for HTML minification.
+*	[ESBuild](https://github.com/evanw/esbuild) for JavaScript minification.
 *	[Gulp](https://gulpjs.com/) for the build pipeline.
 *	[Snowpack](https://snowpack.dev/) for client package management.
 *	[Browsersync](https://www.browsersync.io/) for the development server.
