@@ -182,7 +182,14 @@ html
 
 	cursor: default;
 	-webkit-tap-highlight-color: transparent;
-	scroll-margin-top: 60px;
+
+	scroll-behavior: smooth;
+}
+
+[id]
+{
+	/* Ensures that when scrolling to an #anchor, the element being scrolled to doesn't appear under the floating header */
+	scroll-margin-top: 100px;
 }
 
 body
