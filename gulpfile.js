@@ -287,7 +287,8 @@ const redirects = (callback) =>
 
 	for (const routeData of routesJson.routes)
 	{
-		const contents = `<meta http-equiv=refresh content="0;url=${encodeURI(routeData.serve)}"><link rel=canonical href="${staticSiteJson.canonicalUrl}${encodeURI(routeData.serve)}">`
+		const canonical = (new URL(routeData.serve, staticSiteJson.canonicalUrl)).toString()
+		const contents = `<meta http-equiv=refresh content="0;url=${encodeURI(routeData.serve)}"><link rel=canonical href="${canonical}">`
 
 		// If the route doesn't have an extension, or it has a non-HTML extension, treat it as a folder containing index.html so that it gets the right content-type.
 		let filename = Path.join(staticSiteJson.outputFolder, routeData.route)
