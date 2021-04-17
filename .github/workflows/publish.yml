@@ -3,8 +3,8 @@ name: Deploy website
 on:
   workflow_dispatch:
   # Uncomment this to let the workflow run on every push to main:
-  # push:
-  #   branches: [ main ]
+  push:
+    branches: [ main ]
 
 # IMPORTANT: You need to set up a repo secret called DEPLOY_SAS_URL.
 # Here's how: https://github.com/marketplace/actions/deploy-to-azure-storage#how-to-get-a-sas-url-and-save-it
