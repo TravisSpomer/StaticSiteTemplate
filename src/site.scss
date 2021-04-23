@@ -989,7 +989,6 @@ header
 	right: 0;
 	white-space: nowrap;
 	z-index: 99999;
-	overflow: hidden;
 
 	color: var(--foreground);
 	background-color:  white;
@@ -1014,6 +1013,7 @@ header
 
 	@media (max-width: $phone-width)
 	{
+		overflow: hidden;
 		height: 48px;
 
 		box-shadow: 0 1px 3px var(--background);
