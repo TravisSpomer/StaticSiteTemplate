@@ -32,8 +32,6 @@ Download and install the latest stable versions of these products from their web
 
 1.	[Visual Studio Code](https://code.visualstudio.com)
 2.	[Node](https://nodejs.org/en/)
-3.	[Yarn](https://yarnpkg.com/lang/en/)
-	* **Important:** Install the "Classic" (v1) version of Yarn. Yarn v2 is an entirely different product and does not seem to be very compatible with Visual Studio Code and a few other parts of the ecosystem yet.
 
 In addition, in Windows, you must enable Developer Mode so that the site template can create symlinks without requiring administrator elevation.
 
@@ -67,10 +65,10 @@ When you're ready to produce a minified production build of the site, run the `b
 
 If you want to use the project without Visual Studio Code, use the following scripts instead of the above:
 
-*	`yarn install`: Install dependencies
-*	`yarn start`: Start live server
-*	`yarn dev`: Development build
-*	`yarn build`: Production build
+*	`npm install`: Install dependencies
+*	`npm start`: Start live server
+*	`npm run dev`: Development build
+*	`npm run build`: Production build
 
 ## Using the template
 
@@ -178,7 +176,7 @@ Tip: You can use my [`deploy-to-azure-storage`](https://github.com/marketplace/a
 
 ### Deploying to any static file host
 
-You can also deploy the site to any static file host. Just run a production build (`yarn build`; see above) and upload the contents of the `build` folder to a host of your choice.
+You can also deploy the site to any static file host. Just run a production build (`npm run build`; see above) and upload the contents of the `build` folder to a host of your choice.
 
 ### Optionally purging an Azure CDN
 

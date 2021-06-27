@@ -11,7 +11,7 @@ const GulpReplace = require("gulp-replace")
 const Handlebars = require("handlebars")
 const MarkdownIt = require("gulp-markdownit")
 const Path = require("path")
-const Sass = require("gulp-sass")
+const Sass = require("gulp-sass")(require("node-sass"))
 const Wrap = require("gulp-wrap")
 const TypeScript = require("gulp-typescript")
 // eslint-disable-next-line @typescript-eslint/no-unused-vars-experimental
