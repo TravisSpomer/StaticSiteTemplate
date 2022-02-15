@@ -12,6 +12,7 @@ on:
 env:
   # To purge Azure CDN after deployment, set the following values and a repo secret called AZURE_CREDENTIALS.
   # Run: az ad sp create-for-rbac --role contributor --scopes /subscriptions/[your subscription ID]/resourceGroups/[CDN resource group] --sdk-auth
+  # (You may need to install the Azure CLI (or run "az upgrade") and "az login" before that command.)
   # Copy the JSON from the output into the secret.
   ENABLE_CDN_PURGE: false
   AZURE_RESOURCE_GROUP: MyResourceGroup
