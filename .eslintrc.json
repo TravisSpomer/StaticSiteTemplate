@@ -31,7 +31,7 @@
 		"no-console": "off",
 		"no-multi-spaces": "warn",
 		"no-prototype-builtins": "off",
-		"no-shadow": "off",
+		"no-shadow": ["error", { "builtinGlobals": true, "allow": ["name"] }],
 		"no-trailing-spaces": "warn",
 		"no-var": "error",
 		"object-curly-spacing": ["warn", "always"],
@@ -52,8 +52,8 @@
 		"yoda": ["warn", "never"],
 		"@typescript-eslint/no-empty-interface": "off",
 		"@typescript-eslint/no-explicit-any": "off",
-		"@typescript-eslint/no-shadow": "warn",
-		"@typescript-eslint/no-unused-vars": "warn",
+		"@typescript-eslint/no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars-experimental": "warn",
 		"@typescript-eslint/no-var-requires": "off"
 	}
 }

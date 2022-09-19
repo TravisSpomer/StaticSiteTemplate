@@ -1,6 +1,7 @@
 ﻿---
 title: Page 2
 description: An example page using Markdown
+layout: ../layouts/default.astro
 ---
 
 # Page 2

@@ -7,4 +7,4 @@
 /* SITE */
 
 	https://github.com/TravisSpomer/StaticSiteTemplate
-	Built with: Visual Studio Code, TypeScript, Gulp, ESBuild, Sass, MarkdownIt, and more
+	Built with: Visual Studio Code, TypeScript, Astro, Sass, and more

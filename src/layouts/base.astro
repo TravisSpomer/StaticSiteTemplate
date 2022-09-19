@@ -1,19 +1,20 @@
+---
+import "../site.scss"
+
+const { frontmatter } = Astro.props
+---
+
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
 	<meta charset="utf-8" />
-	<title>{{#if file.frontMatter.title}}{{file.frontMatter.title}} - {{/if}}StaticSiteTemplate</title>
-{{#if file.frontMatter.description}}
-	<meta name="Description" content="{{file.frontMatter.description}}" />
-{{/if}}
+	<title>{frontmatter.title ? `${frontmatter.title} - ` : ""}StaticSiteTemplate</title>
+{frontmatter.description ?
+	<meta name="Description" content={frontmatter.description} /> : ""
+}
 	<meta name="theme-color" content="#4f9adc" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-{{#if file.frontMatter.image}}
-	<meta property="og:image" content="{{site.canonicalUrl}}{{file.frontMatter.image}}" />
-{{else}}
-	<meta property="og:image" content="{{site.canonicalUrl}}/images/social/banner-v1.png" />
-{{/if}}
-	<link rel="stylesheet" href="/site.{{timestamp}}.css" />
+	<meta property="og:image" content={new URL(frontmatter.image || "/images/social/banner-v1.jpg", Astro.site)} />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" /> 
 	<link rel="icon" href="/images/app/logo.svg" />
 	<link rel="mask-icon" href="/images/app/logo-mask.svg" color="#4f9adc" />
@@ -21,6 +22,6 @@
 	<link rel="manifest" href="/app.webmanifest" />
 </head>
 <body>
-{{> body}}
+<slot></slot>
 </body>
 </html>

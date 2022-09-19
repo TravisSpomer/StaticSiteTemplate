@@ -2,15 +2,16 @@
 title: Home
 description: StaticSiteTemplate
 image: /images/app/logo.svg
+layout: ../layouts/default.astro
 ---
 
-<h1>Hello world!</h1>
+# Hello world!
 
-<h2>Welcome to StaticSiteTemplate.</h2>
+## Welcome to StaticSiteTemplate.
 
 <aside class="info">
 	<strong>Tip:</strong>
 	See <code>Readme.md</code> for tips on getting started.
 </aside>
 
-<p>There's also a <a href="/page2">Page 2</a>! Truly the wonders of this template never cease.</p>
+There's also a [Page 2](/page2)! Truly the wonders of this template never cease.

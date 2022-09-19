@@ -1,12 +1,16 @@
 {
+	"$schema": "https://json.schemastore.org/tsconfig",
 	"compileOnSave": false,
 	"compilerOptions": {
 		"allowJs": true,
 		"alwaysStrict": true,
-		"baseUrl": "./web_modules",
+		"esModuleInterop": true,
 		"experimentalDecorators": true,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
 		"lib": [ "ES2017", "dom" ],
-		"module": "ES6",
+		"module": "ESNext",
+		"moduleResolution": "node",
 		"noEmit": true,
 		"noEmitOnError": true,
 		"noImplicitAny": true,
@@ -14,6 +18,7 @@
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
 		"removeComments": true,
+		"resolveJsonModule": true,
 		"rootDir": "src",
 		"skipLibCheck": true,
 		"strictNullChecks": true,
@@ -22,9 +27,5 @@
 	"include": [
 		"src/**/*.js",
 		"src/**/*.ts"
-	],
-	"exclude": [
-		"node_modules/**",
-		"web_modules/**"
 	]
 }

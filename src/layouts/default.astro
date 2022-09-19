@@ -1,5 +1,9 @@
-{{#> base }}
-{{#*inline "body"}}
+---
+import BaseLayout from "./base.astro"
+import Year from "../components/Year.astro"
+---
+
+<BaseLayout {...Astro.props}>
 
 <header aria-expanded="false" tabindex="-1">
 <div><nav>
@@ -17,15 +21,14 @@
 
 <main id="top">
 <div class="content">
-{{{contents}}}
+<slot></slot>
 </div>
 </main>
 
 <footer>
 <p>
-	Template &copy; {{year from=2020}} Travis Spomer.
+	Template © <Year from={2020} /> Travis Spomer.
 </p>
 </footer>
 
-{{/inline}}
-{{/base}}
+</BaseLayout>

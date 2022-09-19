@@ -4,7 +4,6 @@
 	},
 	"editor.insertSpaces": false,
 	"files.exclude": {
-		".github": true,
 		".vs": true,
 		".vscode": true,
 		".yarn": true,
@@ -26,7 +25,6 @@
 	"typescript.format.placeOpenBraceOnNewLineForFunctions": true,
 	"typescript.format.semicolons": "remove",
 	"typescript.preferences.quoteStyle": "double",
-	"typescript.tsdk": "node_modules\\typescript\\lib",
 	"[typescript]": {
 		"editor.formatOnSave": false,
 		"editor.formatOnType": true,

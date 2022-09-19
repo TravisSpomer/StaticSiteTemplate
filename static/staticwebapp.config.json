@@ -1,0 +1,15 @@
+{
+	"routes": [
+		{
+			"route": "/assets/*.{css,js}",
+			"headers": {
+				"Cache-Control": "public, max-age=31536000, immutable"
+			}
+		}
+	],
+	"responseOverrides": {
+		"404": {
+			"rewrite": "/404/index.html"
+		}
+	}
+}

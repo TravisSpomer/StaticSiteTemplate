@@ -1,0 +1,7 @@
+---
+const from = Astro.props.from
+const to = (new Date()).getUTCFullYear()
+const year = (!from || to <= from) ? to.toString() : `${from}-${to}`
+---
+
+{year}

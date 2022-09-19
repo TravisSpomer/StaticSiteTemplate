@@ -38,6 +38,13 @@ jobs:
         npm install
         npm run build
 
+#   - name: Create redirects
+#     uses: TravisSpomer/create-redirects@v1.1.0
+#     with:
+#       output-path: build
+#       routes: staticwebapp.config.json
+#       canonical-url: https://www.example.com
+
     - name: Deploy to Azure
       uses: TravisSpomer/deploy-to-azure-storage@v1.4.0
       with:

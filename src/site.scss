@@ -1,3 +1,5 @@
+@use "sass:math";
+
 /* ============================================================
 	Design system
 ============================================================ */
@@ -92,7 +94,7 @@
 
 @function line-height-as-multiple($line-height, $font-size)
 {
-	@return ceil(100000 * $line-height / $font-size) / 100000;
+	@return math.div(ceil(math.div(100000 * $line-height, $font-size)), 100000);
 }
 
 $font-size: 17px;
@@ -113,9 +115,9 @@ $line-height-tiny: 24px;
 $line-height-multiple-tiny: line-height-as-multiple($line-height-tiny, $font-size-tiny);
 $font-weight-tiny: 400;
 
-$font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+$font-body: system-ui, sans-serif;
 $font-accent: $font-body;
-$font-caps: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+$font-caps: system-ui, sans-serif;
 $font-mono: Inconsolata, Consolas, SFMono-Regular, "Roboto Mono", monospace;
 $font-ui: $font-body;
 $font-weight-ui: 600;
@@ -389,7 +391,7 @@ ul, ol
 
 	@media (max-width: $phone-width)
 	{
-		padding-left: ($indent / 2);
+		padding-left: ($indent * 0.5);
 	}
 	
 	li
@@ -538,7 +540,7 @@ figure
 	margin-left: $indent;
 
 	overflow-x: auto;
-	margin-right: (-$indent / 2);
+	margin-right: (-$indent * 0.5);
 
 	@media (max-width: $phone-width)
 	{
@@ -561,7 +563,7 @@ figure-list
 
 	overflow-x: auto;
 	margin-left: $indent;
-	margin-right: (-$indent / 2);
+	margin-right: (-$indent * 0.5);
 
 	@media (max-width: $phone-width)
 	{
@@ -621,8 +623,8 @@ blockquote, aside
 
 	@media (max-width: $phone-width)
 	{
-		padding-left: ($indent / 2);
-		padding-right: ($indent / 2);
+		padding-left: ($indent * 0.5);
+		padding-right: ($indent * 0.5);
 	}
 	
 	&.left
@@ -1209,7 +1211,7 @@ main
 {
 	flex: 1 1 auto; /* required for IE11 instead of flex: 1; */
 	display: block;
-	margin: ($indent / 2);
+	margin: ($indent * 0.5);
 
 	overflow-wrap: anywhere;
 	scroll-margin-top: 120px;

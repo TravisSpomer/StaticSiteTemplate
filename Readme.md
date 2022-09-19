@@ -1,45 +1,37 @@
 # Travis's static site template
 
-This project contains the basic site template that I use. I've set it up for rapid development and to produce simple, very-high-performance static websites the way that Grandma used to, but with a few extra modern necessities like TypeScript and CSS preprocessing. It has no particular runtime dependencies.
+This project contains the basic static site template that I use. I've set it up for rapid development and to produce simple, very-high-performance static websites the way that Grandma used to, but with a few extra modern necessities like TypeScript and CSS preprocessing. It produces no JavaScript by default.
 
 This is a project for my own use and I don't have any plans to elevate it beyond that but you're welcome to take it and build on it from there. (Unless you prefer indenting with spaces, in which case GTFO.)
 
 ### **[🆕 Create a website with this template now](https://github.com/TravisSpomer/StaticSiteTemplate/generate)**
 
-## Next steps for this template
+## Features
 
-> **Note**
-> A lot has happened since I made this template. The next time I need to make changes to this template I plan to replace it with [Astro](https://astro.build), which does almost everything this template does and a ton more, and is also a major, supported project with compatible goals. The only things I plan on keeping from this template are:
+### Astro
 
-*	The opinionated styling
-*	The GitHub actions for publishing
-*	Generation of redirector pages (I'll use [create-redirects](https://github.com/TravisSpomer/create-redirects))
-*	ESLint integration
+This template is now powered by [Astro](https://astro.build), which handles the dev server and most of the processing.
 
-I'll also need to make a few minor changes to the default Astro configuration:
-
-*	`npm i -D sass` for SCSS support
-*	`npx astro add @frontendista/astro-html-minify` for HTML minification
-
----
-
-## What you can do with it
-
-Back in the olden days, a website that didn't need server-side processing was just a folder full of files. I wanted to get as close to that experience as possible, while still being able to take advantage of a few key advancements in web technologies that have happened since then. But most notably, I *don't* want to use any sort of JavaScript-based UI framework like React.
-
+*	No client-side JavaScript is emitted unless you add some.
 *	You can create one or more page layouts (templates) for your site to hold your common navigation and page structure.
-*	You can create pages in the site by just adding an HTML or Markdown file to the source tree.
-	*	There's intentionally no support for server-side code, but you can run compile-time code in your pages by creating a Handlebars "helper".
+*	You can create pages in the site by just adding an Astro/HTML or Markdown file to the source tree.
 *	You can write your client-side script in TypeScript instead of JavaScript, and it'll be automatically converted.
-*	Your code will be automatically linted and reformatted, ensuring consistent style and eliminating some common mistakes.
-*	You can include NPM packages without bundling.
-*	You can write CSS using the more modern SCSS (Sass) syntax, and it'll be automatically converted.
+*	You can include your favorite NPM packages.
+
+See the [Astro docs](https://astro.build/docs) for information on how to use Astro, though it's quite self-explanatory.
+
+### Enhancements
+
+This template includes a few things that aren't included in Astro by default:
+
 *	The site template and styles include a few opinionated defaults for making beautiful text.
-*	A fast development server is included so you can preview your site instantly, and for production builds, the output is minified for maximum performance.
+*	Your code will be automatically linted and reformatted, ensuring consistent style and eliminating some common mistakes.
+*	You can write CSS using the more modern SCSS (Sass) syntax, and it'll be automatically converted.
+*	In production builds, HTML is minified for maximum performance.
 *	When paired with the [Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/) service or an Azure Blob Storage static website, you automatically get continuous production deployments based on your main Git branch, without ever manually uploading any files.
 	*	But you can use it with any other static site host too by running a single build command and then uploading the contents of the site via FTP.
 
-For more details, see "Using the template" below.
+For more details on these enhancements, see "Using the template" below.
 
 ## Environment setup
 
@@ -50,42 +42,20 @@ Download and install the latest stable versions of these products from their web
 1.	[Visual Studio Code](https://code.visualstudio.com)
 2.	[Node](https://nodejs.org/en/)
 
-In addition, in Windows, you must enable Developer Mode so that the site template can create symlinks without requiring administrator elevation.
-
-1.	Start > `developer settings`
-2.	Developer Mode > On
-
 ### Building and running
 
 Whenever picking up a new version of the template, you need to make sure your dependencies are installed. In Visual Studio Code:
 
-1.	Terminal > Run Task
-2.	Install dependencies
+1.	Terminal > New Terminal
+2.	`npm install`
 
-Then, you can do a full dev build of the project with:
+When you're ready to see your site:
 
-1.	Terminal > Run Build Task (Ctrl+Shift+B)
+1.	`npm start`
 
-But, the most useful option will be the **Start** task, which will perform a full dev build of the project, and then start a web server, open a tab in your browser, and automatically reload the site whenever you change anything while the server is running. The task uses [Browsersync](https://browsersync.io/), so you can open multiple browsers to the same site and they'll stay in sync.
+When you're ready to produce a minified production build of the site in the `build` folder:
 
-1.	Terminal > Run Task
-2.	Start
-
-To see the status of the server or build task, click the tools icon in the status bar, or Terminal > Show Running Tasks.
-
-When you're ready to produce a minified production build of the site, run the `build` build command:
-
-1.	Terminal > Run Task
-3.	Production build
-
-#### Without Visual Studio Code
-
-If you want to use the project without Visual Studio Code, use the following scripts instead of the above:
-
-*	`npm install`: Install dependencies
-*	`npm start`: Start live server
-*	`npm run dev`: Development build
-*	`npm run build`: Production build
+1.	`npm run build`
 
 ## Using the template
 
@@ -95,62 +65,43 @@ Here are some things to know about using this site template.
 
 At minimum, do this to customize the site for your purposes:
 
-1.	Set your site's deployed/canonical URL in [`staticsite.json`](staticsite.json)
-2.	Find and replace `StaticSiteTemplate` with the name of your site
-3.	Update the copyright information in [`src/layouts/*.hbs`](src/layouts/*.hbs)
-4.	Replace image assets in `src/images/app` with appropriate logos for your site
-5.	Add appropriate information to the [app manifest](src/app.webmanifest)
-6.	Give yourself credit in [`humans.txt`](src/humans.txt)
+1.	Find and replace `StaticSiteTemplate` with the name of your site
+2.	Update the `site` canonical URL in [`astro.config.mjs`](astro.config.mjs)
+3.	Update the copyright information in [`src/layouts/*.astro`](src/layouts/)
+4.	Replace image assets in `static/images/app` with appropriate logos for your site
+5.	Add appropriate information to the [app manifest](static/app.webmanifest)
+6.	Give yourself credit in [`humans.txt`](static/humans.txt)
 
 #### Editing the page layout (template)
 
-This site template comes with three page layouts:
+This site template comes with two page layouts:
 
-*	[`default.hbs`](src/layouts/default.hbs), which is suitable for most pages and is used whenever a layout is not explicitly chosen by a page.
-*	[`plain.hbs`](src/layouts/plain.hbs), which is useful for popup windows and very custom pages that don't want the standard page chrome, but still want the site's CSS.
-*	[`none.hbs`](src/layouts/none.hbs), for situations where you want the page contents to be written as-is with no template or shared styles.
+*	[`default.astro`](src/layouts/default.astro), which is suitable for most pages and is used whenever a layout is not explicitly chosen by a page.
+*	[`plain.astro`](src/layouts/plain.astro), which is useful for popup windows and very custom pages that don't want the standard page chrome, but still want the site's CSS.
 
-You can add any number of additional page layouts just by adding more files to that folder. Use `file.frontMatter` in your layout to access the page's FrontMatter data.
-
-There's also [`base.hbs`](src/layouts/base.hbs), which defines the page skeleton shared by both `default` and `plain`. (Currently it's a special case, but
-you could adapt the template to handle more than one base layout: see the call to `Handlebars.registerPartial` in [`gulpfile.js`](gulpfile.js).)
+There's also [`base.astro`](src/layouts/base.astro), which defines the page skeleton shared by both `default` and `plain`.
 
 ### Compatibility
 
 Compatibility with Internet Explorer, Edge Legacy (pre-Chromium), and other non-modern browsers is not a goal. That just applies to the included CSS, though—if you replace my default CSS with something simpler, it would work just fine.
-
-### Site options
-
-Open [`staticsite.json`](staticsite.json) to configure options for the site.
-
-*	`allowSymlinks`: Set to `true` if the build pipeline can use symlinks when possible for faster performance, or `false` if files should always be copied. Default is `true`. This setting is ignored on non-Windows systems.
-*	`azureStaticWebApps`: Set to `true` if deploying this site to Azure Static Web Apps, and `false` otherwise. Default is `false`.
-*	`cacheBusting`: Set to `true` to add a build timestamp to the filenames of your JS and CSS files, and also replace `"{{timestamp}}"` in your pages and layouts with that build timestamp. Default is `false`. (When disabled, `"{{timestamp}}"` in your pages and layouts will be left as-is.)
-	*	If you use this setting, and you use Azure blob storage, consider also setting `immutable: '*.js;*.css*'` on the `deploy-to-azure-storage` step of the [deployment workflow] (.github/workflows/publish.yml). Then your JS and CSS files will get served with [`Cache-Control`](https://csswizardry.com/2019/03/cache-control-for-civilians/) headers indicating that they're immutable.
-*	`canonicalUrl`: **Required.** Set this to the canonical deployed URL of the site. For example: `"https://www.example.com/"`.
-*	`defaultLayout`: Set to the name of the default layout template in `src/layouts`, without the extension. Default is `default`.
-*	`devServerPort`: The port to use when running the `serve` command. If not specified, browsersync will choose a port for you, likely 3000.
-*	`outputFolder`: Set to the name of the folder where you'd like the built site files to be created. Default is `build/`. The contents of this folder can be uploaded to your hosting provider as-is. **Important:** All files in this folder will be deleted when the output is built or cleaned.
 
 ### Stuff you can safely delete
 
 The template includes a few files that aren't necessary that you can feel free to delete.
 
 *	`page2.md` is just an example of how to write a page in Markdown and you should delete it.
-*	`site.ts` is the TypeScript source for the site. There's nothing in it, so it'll generate an empty JavaScript file. You don't need this if you aren't writing any client script.
 *	`humans.txt` is just for your benefit and is not necessary in any way.
-*	The `plain.hbs` and `none.hbs` layouts aren't used by anything in the template, and don't need them if you aren't using them directly.
-*	`lit-element` and `@travisspomer/tidbits` in `dependencies` are only used as examples of how to include lightweight NPM packages for use in client-side script. You can remove them from `dependencies` and `snowpack.install`.
+*	The `plain.astro` layout isn't used by anything in the template, and don't need it if you don't decide to use it.
+
+### Optimization
+
+Production builds will optimize your HTML, CSS, and JavaScript outputs. If you'd also like to optimize images and other assets, you can use [astro-compress](https://github.com/Lightrix/astro-compress). If you do this you'll probably want to remove the `@frontendista/astro-html-minify` dependency. (I chose that one for this template because it's about 60 MB smaller than `astro-compress`.)
 
 ### Creating routes and redirects
 
-Use [`routes.json`](src/routes.json) to configure routes and redirects for the app.
+Use [`staticwebapp.config.json`](static/staticwebapp.config.json) to configure routes and redirects for the app.
 
-When the `azureStaticWebApps` option is set to true, this file will be copied as-is to the output folder and [used by the Azure Static Web Apps service](https://docs.microsoft.com/en-us/azure/static-web-apps/routes).
-
-When the option is set to false (or omitted), the pipeline will use its contents for two things:
-*	Redirects in the `routes` section will be created as redirect files. (In the example below, a file called `default.aspx` will be created, which redirects to `/`.)
-*	Files specified in `platformErrorOverrides` will not have their extensions stripped. (In the example below, `404.html` will *not* be output as `404/index.html` like it would normally.)
+This file will be copied as-is to the output folder and [used by the Azure Static Web Apps service](https://docs.microsoft.com/en-us/azure/static-web-apps/routes).
 
 #### Example routes.json
 
@@ -173,7 +124,6 @@ You have a few options:
 
 You can deploy to Azure Static Web Apps with very minimal configuration:
 
-*	Set `azureStaticWebApps` to `true` in [`staticsite.json`](staticsite.json).
 *	When creating the app in Azure Portal, set the build artifacts folder to `build` (it's empty by default).
 
 Once your repo and Azure are set up in this way, whenever your default branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
@@ -183,11 +133,11 @@ Once your repo and Azure are set up in this way, whenever your default branch is
 You can easily deploy to an Azure Blob Storage static website using GitHub Actions (if your project is on GitHub):
 
 *	[Generate a SAS URL for your storage account and create a Secret in your repo](https://github.com/marketplace/actions/deploy-to-azure-storage#how-to-get-a-sas-url-and-save-it).
-*	In GitHub, open this repo's [`.github/workflows/publish.yml`](.github/workflows/publish.yml), edit it, and uncomment the two `push:` and `branches: [ $default-branch ]` lines at the top to enable automatic deployments.
-	*	If you prefer, you can manually trigger a deployment from the Actions tab.
-	*	By default, GitHub won't allow you to edit that file from Visual Studio code, only from github.com.
+*	In GitHub, open this repo's [`.github/workflows/publish.yml`](.github/workflows/publish.yml), edit it, and uncomment the two `push:` and `branches: [ main ]` lines at the top to enable automatic deployments.
+	*	If you are using `staticwebapp.config.json` to configure redirects, uncomment the "create redirects" section and fill in the `canonical-url` property.
+	*	If you prefer, you can manually trigger a deployment from the Actions tab instead of running automatically.
 
-Once your repo is set up this way, whenever your default branch is changed, GitHub will automatically build your site and publish it to Azure without any manual steps.
+Once your repo is set up this way, whenever your default branch has changes pushed, GitHub will automatically build your site and publish it to Azure without any manual steps.
 
 Tip: You can use my [`deploy-to-azure-storage`](https://github.com/marketplace/actions/deploy-to-azure-storage) Action to automatically deploy static sites built with other templates, too.
 
@@ -201,16 +151,10 @@ The deployment workflow included with this template can also automatically purge
 
 ## Technologies used
 
-*	[Handlebars](https://www.handlebarsjs.com/) for page templating.
+*	[Astro](https://astro.build) for most features, replacing my old Gulp-powered build pipeline.
 *	[TypeScript](https://www.typescriptlang.org/) for JavaScript transpilation.
 *	[ESLint](https://eslint.org/) for JavaScript linting and formatting.
 *	[SCSS (Sass)](https://sass-lang.com/) for CSS preprocessing and minification.
-*	[Markdown-It](https://github.com/markdown-it/markdown-it) for Markdown to HTML transformation.
-*	[HTML Minifier](https://github.com/kangax/html-minifier) for HTML minification.
-*	[ESBuild](https://github.com/evanw/esbuild) for JavaScript minification.
-*	[Gulp](https://gulpjs.com/) for the build pipeline.
-*	[Snowpack](https://snowpack.dev/) for client package management.
-*	[Browsersync](https://www.browsersync.io/) for the development server.
 
 For more information, including licenses for these packages, check the `node_modules` subfolders.
 
