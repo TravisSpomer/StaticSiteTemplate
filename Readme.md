@@ -6,6 +6,23 @@ This is a project for my own use and I don't have any plans to elevate it beyond
 
 ### **[🆕 Create a website with this template now](https://github.com/TravisSpomer/StaticSiteTemplate/generate)**
 
+## Next steps for this template
+
+> **Note**
+> A lot has happened since I made this template. The next time I need to make changes to this template I plan to replace it with [Astro](https://astro.build), which does almost everything this template does and a ton more, and is also a major, supported project with compatible goals. The only things I plan on keeping from this template are:
+
+*	The opinionated styling
+*	The GitHub actions for publishing
+*	Generation of redirector pages (I'll use [create-redirects](https://github.com/TravisSpomer/create-redirects))
+*	ESLint integration
+
+I'll also need to make a few minor changes to the default Astro configuration:
+
+*	`npm i -D sass` for SCSS support
+*	`npx astro add @frontendista/astro-html-minify` for HTML minification
+
+---
+
 ## What you can do with it
 
 Back in the olden days, a website that didn't need server-side processing was just a folder full of files. I wanted to get as close to that experience as possible, while still being able to take advantage of a few key advancements in web technologies that have happened since then. But most notably, I *don't* want to use any sort of JavaScript-based UI framework like React.
