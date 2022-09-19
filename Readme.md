@@ -92,6 +92,7 @@ The template includes a few files that aren't necessary that you can feel free t
 *	`page2.md` is just an example of how to write a page in Markdown and you should delete it.
 *	`humans.txt` is just for your benefit and is not necessary in any way.
 *	The `plain.astro` layout isn't used by anything in the template, and don't need it if you don't decide to use it.
+*	`staticwebapp.config.json` is only needed if you're deploying to the Azure Static Web Apps service **or** you've changed that file to create client-side redirects.
 
 ### Optimization
 
@@ -103,16 +104,16 @@ Use [`staticwebapp.config.json`](static/staticwebapp.config.json) to configure r
 
 This file will be copied as-is to the output folder and [used by the Azure Static Web Apps service](https://docs.microsoft.com/en-us/azure/static-web-apps/routes).
 
-#### Example routes.json
+#### Example staticwebapp.config.json
 
 ```json
 {
 	"routes": [
 		{ "route": "default.aspx", "serve": "/", "statusCode": 301 }
 	],
-	"platformErrorOverrides": [
-		{ "errorType": "NotFound", "serve": "/404.html" }
-	]
+	"responseOverrides": {
+		"404": { "rewrite": "/404/index.html" }
+	}
 }
 ```
 
