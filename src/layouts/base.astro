@@ -1,20 +1,20 @@
 ---
 import "../site.scss"
 
-const { frontmatter } = Astro.props
+const props = Astro.props.frontmatter || Astro.props
 ---
 
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
 	<meta charset="utf-8" />
-	<title>{frontmatter.title ? `${frontmatter.title} - ` : ""}StaticSiteTemplate</title>
-{frontmatter.description ?
-	<meta name="Description" content={frontmatter.description} /> : ""
+	<title>{props.title ? `${props.title} - ` : ""}StaticSiteTemplate</title>
+{props.description ?
+	<meta name="Description" content={props.description} /> : ""
 }
 	<meta name="theme-color" content="#4f9adc" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta property="og:image" content={new URL(frontmatter.image || "/images/social/banner-v1.jpg", Astro.site)} />
+	<meta property="og:image" content={new URL(props.image || "/images/social/banner-v1.jpg", Astro.site)} />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" /> 
 	<link rel="icon" href="/images/app/logo.svg" />
 	<link rel="mask-icon" href="/images/app/logo-mask.svg" color="#4f9adc" />
