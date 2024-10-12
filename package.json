@@ -13,7 +13,7 @@
 		"@frontendista/astro-html-minify": "^1.0.7",
 		"@typescript-eslint/eslint-plugin": "^5.49.0",
 		"@typescript-eslint/parser": "^5.49.0",
-		"astro": "^2.0.2",
+		"astro": "^4.16.1",
 		"babel-eslint": "^10.1.0",
 		"babel-plugin-unpkg": "^1.0.0",
 		"eslint": "^8.32.0",
